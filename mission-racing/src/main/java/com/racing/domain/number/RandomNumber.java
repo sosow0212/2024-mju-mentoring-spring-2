@@ -1,4 +1,4 @@
-package com.racing.domain.moveNumber;
+package com.racing.domain.number;
 
 public class RandomNumber implements RandomGenerator {
     @Override

@@ -1,6 +1,6 @@
 package com.racing.domain.car;
 
-import com.racing.domain.moveNumber.RandomGenerator;
+import com.racing.domain.number.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +22,18 @@ public class Cars {
         return new ArrayList<>(Arrays.asList(carNames.split(COMMA)));
     }
 
-    private int moveCars() {
+    private void move(int moveNumber) {
+        for (int i = 0; i < moveNumber; i++) {
+            moveCar();
+        }
+    }
+
+    private int moveCar() {
         int count = 0;
+        return moveCount(count);
+    }
+
+    private int moveCount(int count) {
         if (randomGenerator.generateRandom() >= 4) {
             count++;
         }
