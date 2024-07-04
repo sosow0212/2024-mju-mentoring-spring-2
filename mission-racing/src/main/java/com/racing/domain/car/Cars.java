@@ -16,7 +16,6 @@ public class Cars {
     public Cars(final RandomGenerator randomGenerator) {
         this.randomGenerator = randomGenerator;
         this.cars = new ArrayList<>();
-
     }
 
     private List<String> createCars(String carNames) {
