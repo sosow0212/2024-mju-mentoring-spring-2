@@ -19,8 +19,7 @@ public class Cars {
     }
 
     private List<String> createCars(String carNames) {
-        List<String> carList = new ArrayList<>(Arrays.asList(carNames.split(COMMA)));
-        return carList;
+        return new ArrayList<>(Arrays.asList(carNames.split(COMMA)));
     }
 
     private int moveCars() {
