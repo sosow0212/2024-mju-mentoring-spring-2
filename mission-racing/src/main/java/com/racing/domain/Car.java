@@ -29,17 +29,4 @@ public class Car {
         List<String> carsList = new ArrayList<>(Arrays.asList(split));
         return createCar(carNames);
     }
-
-
-    public String getCarNames() {
-        return carNames;
-    }
-
-    public int getMoveCount() {
-        return moveCount;
-    }
-
-    public boolean isSameMoveCount(final int maxMoveCount) {
-        return this.moveCount == maxMoveCount;
-    }
 }
