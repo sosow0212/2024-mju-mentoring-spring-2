@@ -1,6 +1,6 @@
-package com.racing.domain.number;
+package com.racing.domain;
 
-public class RandomNumber implements RandomGenerator {
+public class RandomNumbeGenerate implements NumberGenerator {
     @Override
     public int generateRandom() {
         return (int) (Math.random() * 10);
