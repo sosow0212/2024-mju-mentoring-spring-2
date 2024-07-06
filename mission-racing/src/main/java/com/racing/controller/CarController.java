@@ -13,25 +13,24 @@ public class CarController {
     OutputView outputView;
     private List<Car> carList;
 
-    public CarController(InputView inputView, OutputView outputView, List<Car> carList){
-        this.inputView=inputView;
-        this.outputView=outputView;
-        this.carList=carList;
+    public CarController(InputView inputView, OutputView outputView, List<Car> carList) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.carList = carList;
     }
 
-    public void Run(){
-        String inputNames= inputView.inputName();
-        int inputCounts= inputView.inputCount();
-
-        Cars cars=new Cars(carList);
+    public void Run() {
+        String inputNames = inputView.inputName();
+        Cars cars = new Cars(carList);
         cars.generateCarList(inputNames);
+        int inputCounts = inputView.inputCount();
 
-        for (int count=0; count<inputCounts;count++){
+        for (int count = 0; count < inputCounts; count++) {
             cars.carsMove();
             outputView.printRunResult(cars.getCarState(carList));
         }
 
-        List<String> winners= cars.carRank(carList);
+        List<String> winners = cars.carRank(carList);
         outputView.printWinners(winners);
     }
 
