@@ -20,9 +20,8 @@ public class Car {
         this.moveCount = new MoveCount();
     }
 
-
     public void move(final int randomNumber) {
-        this.moveCount.move();
+        this.moveCount.move(randomNumber);
     }
 
     private List<Cars> createCar(String carNames) {
