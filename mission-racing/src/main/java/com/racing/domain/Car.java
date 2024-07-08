@@ -1,32 +1,31 @@
 package com.racing.domain;
 
-import com.racing.domain.vo.MoveCount;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.racing.vo.Name;
+import com.racing.vo.MoveCount;
 
 public class Car {
 
-    private static final String COMMA = ",";
-    public static final int DEFAULT_MOVE_COUNT = 0;
-    public static final int BOUNDARY_SIZE_OF_MOVE = 4;
+    private final Name name;
+    private final MoveCount moveCount;
 
-    private final String carNames;
-    private MoveCount moveCount;
-
-    public Car(final String carNames, final MoveCount moveCount) {
-        this.carNames = carNames;
+    public Car(final String name) {
+        this.name = Name.from(name);
         this.moveCount = new MoveCount();
+    }
+
+    public boolean isSameCount(final int count) {
+        return this.moveCount.isSame(count);
     }
 
     public void move(final int randomNumber) {
         this.moveCount.move(randomNumber);
     }
 
-    private List<Cars> createCar(String carNames) {
-        String[] split = carNames.split(COMMA);
-        List<String> carsList = new ArrayList<>(Arrays.asList(split));
-        return createCar(carNames);
+    public int getMoveCount() {제
+        return moveCount.getMoveCount();
+    }
+
+    public String getName() {
+        return name.getName();
     }
 }
