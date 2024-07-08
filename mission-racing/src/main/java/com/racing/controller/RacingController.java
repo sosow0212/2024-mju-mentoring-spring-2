@@ -1,54 +1,37 @@
 package com.racing.controller;
 
-import com.racing.domain.Car;
 import com.racing.domain.Cars;
 import com.racing.domain.NumberGenerator;
-import com.racing.domain.view.Outputview;
+import com.racing.view.Inputview;
+import com.racing.view.Outputview;
+import com.racing.domain.dto.WinnerResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RacingController {
 
-    private final NumberGenerator numberGenerator;
+    private final Inputview inputview;
     private final Outputview outputview;
+    private final NumberGenerator numberGenerator;
 
-    public RacingController(final NumberGenerator numberGenerator, final Outputview outputview) {
-        this.numberGenerator = numberGenerator;
+    public RacingController(final Inputview inputview, final Outputview outputview, final NumberGenerator numberGenerator) {
+        this.inputview = inputview;
         this.outputview = outputview;
+        this.numberGenerator = numberGenerator;
     }
 
     public void run() {
-        String name = intputView.getNames();
-        int moveCount = inputView.getMoveCount();
+        String moveCarName = inputview.getMoveCarName();
+        int chance = inputview.getChance();
+        Cars cars = Cars.from(moveCarName);
 
-        List<Car> cars = new Cars();
-        for (String s : name.split(",")) {
-            cars.add(new Car(s));
+        for (int i = 0; i < chance; i++) {
+            cars.moveCars(1, numberGenerator);
+            WinnerResponse winnerResponse = new WinnerResponse(cars.getCarStates(), cars.findsWinner());
+            outputview.printRacingStep(winnerResponse);
         }
 
-        for (int i = 0; i < moveCount; i++) {
-            for (Car car : cars) {
-                car.move(numberGenerator.generateRandom());
-            }
-        }
-
-        int maxMoveCount = 0;
-        for (Car car : cars) {
-            maxMoveCount = Math.max(maxMoveCount, car.getMoveCount());
-        }
-
-        List<String> winners = new ArrayList<>();
-        for (Car car : cars) {
-            if (car.getMoveCount() == maxMoveCount) {
-                winners.add(car.getCarNames());
-            }
-        }
-
-//        Cars cars = Cars.from(name);
-//        cars.moveCars(moveCount, numberGenerator);
-//        List<String> winnerNames = cars.findWinnerNames();
-//        outputview.printResult(winnerNames);
+        List<String> winners = cars.findsWinner();
+        outputview.printFinalWinner(winners);
     }
 }
-
