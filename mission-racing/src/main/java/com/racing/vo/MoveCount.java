@@ -1,9 +1,9 @@
-package com.racing.domain.vo;
+package com.racing.vo;
 
 public class MoveCount {
 
     public static final int NUMBER_TO_MOVE = 4;
-    private final int DEFAULT_MOVE_COUNT = 0;
+    private static final int DEFAULT_MOVE_COUNT = 0;
 
     private int moveCount;
 
@@ -15,5 +15,13 @@ public class MoveCount {
         if (randomNumber >= NUMBER_TO_MOVE) {
             this.moveCount++;
         }
+    }
+
+    public int getMoveCount(){
+        return moveCount;
+    }
+
+    public boolean isSame(final int count) {
+        return this.moveCount==count;
     }
 }
