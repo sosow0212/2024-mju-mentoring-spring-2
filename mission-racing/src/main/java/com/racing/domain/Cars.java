@@ -1,9 +1,13 @@
 package com.racing.domain;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Cars {
+
+    private static final String SPLIT_COMMA = ",";
+    private static final int MAX_MOVE_COUNT = 1;
 
     private final List<Car> cars;
 
@@ -12,31 +16,42 @@ public class Cars {
     }
 
     public static Cars from(final String names) {
-
-        List<Car> cars = List.of(names.split(",")).stream()
+        List<Car> cars = Arrays.stream(names.split(SPLIT_COMMA))
                 .map(Car::new)
-                .toList();
-
+                .collect(Collectors.toList());
         return new Cars(cars);
     }
 
     public void moveCars(int inputCount, final NumberGenerator numberGenerator) {
         for (int i = 0; i < inputCount; i++) {
-            for (int j = 0; j < cars.size(); j++) {
-                cars.get(j).move(numberGenerator.generateRandom());
+            for (Car car : cars) {
+                car.move(numberGenerator.generateRandom());
             }
         }
     }
 
-    public List<String> findWinnerNames() {
-        int maxMoveCount = cars.stream()
+    public List<String> findsWinner() {
+        int maxMoveCount = findWinnerMaxCount();
+        return findWinner(maxMoveCount);
+    }
+
+    private List<String> findWinner(final int maxMoveCount) {
+        return cars.stream()
+                .filter(car -> car.isSameCount(maxMoveCount))
+                .map(Car::getName)
+                .collect(Collectors.toList());
+    }
+
+    private int findWinnerMaxCount() {
+        return cars.stream()
                 .mapToInt(Car::getMoveCount)
                 .max()
-                .orElse(0);
+                .orElse(MAX_MOVE_COUNT);
+    }
 
+    public List<String> getCarStates() {
         return cars.stream()
-                .filter(car -> car.isSameMoveCount(maxMoveCount))
-                .map(Car::getCarNames)
+                .map(car -> car.getName() + ": " + "-".repeat(car.getMoveCount()))
                 .collect(Collectors.toList());
     }
 }
