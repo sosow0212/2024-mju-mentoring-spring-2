@@ -3,6 +3,7 @@ package com.example.racingspring.domain;
 
 import com.example.racingspring.domain.vo.MoveCount;
 import com.example.racingspring.domain.vo.Name;
+import org.springframework.context.annotation.Bean;
 
 public class Car {
 
@@ -18,6 +19,7 @@ public class Car {
         return this.moveCount.isSame(count);
     }
 
+    @Bean
     public void move(final int randomNumber) {
         this.moveCount.move(randomNumber);
     }
