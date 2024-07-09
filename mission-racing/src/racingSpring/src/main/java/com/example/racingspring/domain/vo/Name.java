@@ -1,6 +1,6 @@
-package com.example.racingspring.vo;
+package com.example.racingspring.domain.vo;
 
-import com.example.racingspring.exception.NullInputException;
+import com.example.racingspring.view.exception.NullInputException;
 
 public class Name {
 

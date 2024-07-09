@@ -1,4 +1,4 @@
-package com.example.racingspring.vo;
+package com.example.racingspring.domain.vo;
 
 public class MoveCount {
 

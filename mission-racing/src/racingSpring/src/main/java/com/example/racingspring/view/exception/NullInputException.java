@@ -1,4 +1,4 @@
-package com.example.racingspring.exception;
+package com.example.racingspring.view.exception;
 
 public class NullInputException extends RuntimeException {
 

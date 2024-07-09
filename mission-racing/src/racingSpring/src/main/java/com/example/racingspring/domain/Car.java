@@ -1,8 +1,8 @@
 package com.example.racingspring.domain;
 
 
-import com.example.racingspring.vo.MoveCount;
-import com.example.racingspring.vo.Name;
+import com.example.racingspring.domain.vo.MoveCount;
+import com.example.racingspring.domain.vo.Name;
 
 public class Car {
 

@@ -1,7 +1,7 @@
 package com.example.racingspring.view;
 
 
-import com.example.racingspring.exception.NullInputException;
+import com.example.racingspring.view.exception.NullInputException;
 
 import java.util.Scanner;
 
