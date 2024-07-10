@@ -1,16 +1,12 @@
 package com.example.racingspring.domain;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@RequestMapping("api/cars")
 public class Cars {
 
     private static final String SPLIT_COMMA = ",";
@@ -28,7 +24,7 @@ public class Cars {
                 .collect(Collectors.toList());
         return new Cars(cars);
     }
-    @RequestMapping("api/cars/racing")
+
     public void moveCars(int inputCount, final NumberGenerator numberGenerator) {
         for (int i = 0; i < inputCount; i++) {
             for (Car car : cars) {
@@ -37,7 +33,6 @@ public class Cars {
         }
     }
 
-    @GetMapping("api/cars")
     public List<String> findsWinner() {
         int maxMoveCount = findWinnerMaxCount();
         return findWinner(maxMoveCount);

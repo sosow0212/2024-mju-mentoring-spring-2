@@ -71,6 +71,30 @@
 
 ### API 문서 (응답 값은 따로 정해진 것이 없다면 자유)
 
+
+### 내가 설정한 문서 (응답 값 바꿨는데 작성해보기)
+
+Request 
+POST  /api/racing
+
+{
+  "carNames": "jay,pobi,crong",
+  "tryCount": 10
+}
+
+결과 조회
+GET
+URL:/api/cars/result
+
+
+개별조회
+URL: /api/cars/{name}
+
+
+
+
+
+
 #### 1. 자동차 이름 등록 (POST)
 
 Request
@@ -79,7 +103,7 @@ Request
 POST /api/cars
 
 {
-    "name" : "jay,pobi,crong",
+    "carNames" : "jay,pobi,crong",
     "tryCount" : 10
 }
 

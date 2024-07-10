@@ -13,7 +13,7 @@ public class WinnerResponse {
         this.carStates = carStates;
         this.winners = winners;
     }
-    @GetMapping("/api/cars")
+    @GetMapping("api/cars/result")
     public void printResultDto() {
         for (String carState : carStates) {
             System.out.println(carState);
