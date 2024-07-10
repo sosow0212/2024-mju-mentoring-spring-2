@@ -24,6 +24,7 @@ public class Car {
         this.moveCount.move(randomNumber);
     }
 
+
     public int getMoveCount() {
         return moveCount.getMoveCount();
     }

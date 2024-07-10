@@ -34,6 +34,7 @@ public class Cars {
         }
     }
 
+    @Bean
     public List<String> findsWinner() {
         int maxMoveCount = findWinnerMaxCount();
         return findWinner(maxMoveCount);
@@ -53,6 +54,7 @@ public class Cars {
                 .orElse(MAX_MOVE_COUNT);
     }
 
+    @Bean
     public List<String> getCarStates() {
         return cars.stream()
                 .map(car -> car.getName() + ": " + "-".repeat(car.getMoveCount()))

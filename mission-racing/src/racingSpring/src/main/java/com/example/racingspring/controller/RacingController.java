@@ -1,21 +1,25 @@
 package com.example.racingspring.controller;
 
-
 import com.example.racingspring.domain.Cars;
 import com.example.racingspring.domain.NumberGenerator;
 import com.example.racingspring.domain.dto.WinnerResponse;
 import com.example.racingspring.view.Inputview;
 import com.example.racingspring.view.Outputview;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@C
+@RestController
+@RequestMapping("/racing")
 public class RacingController {
 
     private final Inputview inputview;
     private final Outputview outputview;
     private final NumberGenerator numberGenerator;
 
+    @Autowired
     public RacingController(final Inputview inputview, final Outputview outputview, final NumberGenerator numberGenerator) {
         this.inputview = inputview;
         this.outputview = outputview;
