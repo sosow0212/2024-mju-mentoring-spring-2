@@ -1,5 +1,7 @@
 package com.example.racingspring.domain.vo;
 
+import org.springframework.stereotype.Component;
+
 public class MoveCount {
 
     public static final int NUMBER_TO_MOVE = 4;

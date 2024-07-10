@@ -1,5 +1,7 @@
 package com.example.racingspring.domain.dto;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.List;
 
 public class WinnerResponse {
@@ -11,7 +13,7 @@ public class WinnerResponse {
         this.carStates = carStates;
         this.winners = winners;
     }
-
+    @GetMapping("/api/cars")
     public void printResultDto() {
         for (String carState : carStates) {
             System.out.println(carState);
