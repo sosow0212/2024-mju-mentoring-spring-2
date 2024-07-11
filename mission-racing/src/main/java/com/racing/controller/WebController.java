@@ -1,7 +1,6 @@
 package com.racing.controller;
 
-import com.racing.domain.Cars;
-import com.racing.controller.dto.StartRaceRequest;
+import com.racing.service.dto.StartRaceRequest;
 import com.racing.view.dto.WinnerResponse;
 import com.racing.service.RacingService;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ public class WebController {
 
     @PostMapping("/racing")
     public WinnerResponse startRace(@RequestBody StartRaceRequest request) {
-        Cars cars = racingService.createCars(request.carNames());
-        return racingService.race(cars, request.tryCount());
+        return racingService.startRace(request);
     }
 }

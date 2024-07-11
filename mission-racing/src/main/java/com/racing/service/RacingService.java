@@ -1,8 +1,10 @@
 package com.racing.service;
 
+import com.racing.service.dto.StartRaceRequest;
+import com.racing.view.dto.WinnerResponse;
 import com.racing.domain.Cars;
 import com.racing.domain.NumberGenerator;
-import com.racing.view.dto.WinnerResponse;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +20,12 @@ public class RacingService {
         return Cars.from(carNames);
     }
 
-    public WinnerResponse race(Cars cars, int chance) {
+    public WinnerResponse startRace(StartRaceRequest request) {
+        Cars cars = createCars(request.carNames());
+        return raceCars(request.tryCount(), cars);
+    }
+
+    private WinnerResponse raceCars(int chance, Cars cars) {
         for (int i = 0; i < chance; i++) {
             cars.moveCars(1, numberGenerator);
         }

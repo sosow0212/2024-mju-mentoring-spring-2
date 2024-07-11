@@ -6,8 +6,6 @@ import com.racing.view.dto.WinnerResponse;
 import com.racing.view.Inputview;
 import com.racing.view.Outputview;
 
-import java.util.List;
-
 public class RacingController {
 
     private final Inputview inputview;
@@ -26,21 +24,21 @@ public class RacingController {
         String moveCarName = inputview.getMoveCarName();
         int chance = inputview.getChance();
         Cars cars = Cars.from(moveCarName);
-        moveRacing(chance, cars);
-        racingWinner(cars);
+        raceCars(chance, cars);
+        displayWinner(cars);
     }
 
-    private void racingWinner(final Cars cars) {
-        List<String> winners = cars.findsWinner();
-        WinnerResponse winnerResponse = new WinnerResponse(cars.getCarStates(), cars.findsWinner());
-        outputview.printRacingWinner(winnerResponse);
-    }
-
-    private void moveRacing(final int chance, final Cars cars) {
+    public WinnerResponse raceCars(int chance, Cars cars) {
         for (int i = 0; i < chance; i++) {
             cars.moveCars(1, numberGenerator);
             WinnerResponse winnerResponse = new WinnerResponse(cars.getCarStates(), cars.findsWinner());
             outputview.printRacingStep(winnerResponse);
         }
+        return new WinnerResponse(cars.getCarStates(), cars.findsWinner());
+    }
+
+    private void displayWinner(Cars cars) {
+        WinnerResponse winnerResponse = new WinnerResponse(cars.getCarStates(), cars.findsWinner());
+        outputview.printRacingWinner(winnerResponse);
     }
 }
