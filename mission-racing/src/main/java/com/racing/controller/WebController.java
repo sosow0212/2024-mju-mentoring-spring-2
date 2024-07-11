@@ -1,8 +1,8 @@
 package com.racing.controller;
 
 import com.racing.domain.Cars;
-import com.racing.domain.dto.StartRaceRequest;
-import com.racing.domain.dto.WinnerResponse;
+import com.racing.controller.dto.StartRaceRequest;
+import com.racing.view.dto.WinnerResponse;
 import com.racing.service.RacingService;
 import org.springframework.web.bind.annotation.*;
 

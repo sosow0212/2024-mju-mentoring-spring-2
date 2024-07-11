@@ -1,4 +1,4 @@
-package com.racing.domain.dto;
+package com.racing.view.dto;
 
 import java.util.List;
 

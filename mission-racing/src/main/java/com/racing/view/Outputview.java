@@ -1,6 +1,6 @@
 package com.racing.view;
 
-import com.racing.domain.dto.WinnerResponse;
+import com.racing.view.dto.WinnerResponse;
 
 import java.util.List;
 

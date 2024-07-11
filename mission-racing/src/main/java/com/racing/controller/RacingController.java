@@ -2,7 +2,7 @@ package com.racing.controller;
 
 import com.racing.domain.Cars;
 import com.racing.domain.NumberGenerator;
-import com.racing.domain.dto.WinnerResponse;
+import com.racing.view.dto.WinnerResponse;
 import com.racing.view.Inputview;
 import com.racing.view.Outputview;
 

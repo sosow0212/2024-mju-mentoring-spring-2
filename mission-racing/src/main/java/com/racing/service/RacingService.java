@@ -2,7 +2,7 @@ package com.racing.service;
 
 import com.racing.domain.Cars;
 import com.racing.domain.NumberGenerator;
-import com.racing.domain.dto.WinnerResponse;
+import com.racing.view.dto.WinnerResponse;
 import org.springframework.stereotype.Service;
 
 @Service
