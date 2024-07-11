@@ -32,7 +32,8 @@ public class RacingController {
 
     private void racingWinner(final Cars cars) {
         List<String> winners = cars.findsWinner();
-        outputview.printFinalWinner(winners);
+        WinnerResponse winnerResponse = new WinnerResponse(cars.getCarStates(), cars.findsWinner());
+        outputview.printRacingWinner(winnerResponse);
     }
 
     private void moveRacing(final int chance, final Cars cars) {
