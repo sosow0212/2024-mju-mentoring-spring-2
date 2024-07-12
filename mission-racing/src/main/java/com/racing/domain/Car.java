@@ -1,7 +1,7 @@
 package com.racing.domain;
 
-import com.racing.vo.Name;
-import com.racing.vo.MoveCount;
+import com.racing.domain.vo.MoveCount;
+import com.racing.domain.vo.Name;
 
 public class Car {
 

@@ -1,24 +1,17 @@
 package com.racing.view;
 
-import com.racing.domain.dto.WinnerResponse;
-
-import java.util.List;
+import com.racing.view.dto.ResultResponse;
 
 public class Outputview {
 
-    public void printRacingStep(WinnerResponse winnerResponse) {
-        winnerResponse.printResultDto();
-        System.out.println();
+    private ResultResponse resultResponse;
+
+    public void printRacingStep(ResultResponse resultResponse) {
+        resultResponse.printResultDto();
     }
 
-    public void printFinalWinner(List<String> winners) {
-        System.out.print("최종 우승자: ");
-        for (int i = 0; i < winners.size(); i++) {
-            if (i > 0) {
-                System.out.print(", ");
-            }
-            System.out.print(winners.get(i));
-        }
+    public void printRacingWinner(ResultResponse resultResponse) {
+        resultResponse.printFinalWinner();
         System.out.println();
     }
 }

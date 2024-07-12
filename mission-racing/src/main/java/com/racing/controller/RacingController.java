@@ -1,12 +1,11 @@
 package com.racing.controller;
 
+import com.racing.controller.dto.WinnerResponse;
 import com.racing.domain.Cars;
 import com.racing.domain.NumberGenerator;
 import com.racing.view.Inputview;
 import com.racing.view.Outputview;
-import com.racing.domain.dto.WinnerResponse;
-
-import java.util.List;
+import com.racing.view.dto.ResultResponse;
 
 public class RacingController {
 
@@ -14,7 +13,9 @@ public class RacingController {
     private final Outputview outputview;
     private final NumberGenerator numberGenerator;
 
-    public RacingController(final Inputview inputview, final Outputview outputview, final NumberGenerator numberGenerator) {
+    public RacingController(final Inputview inputview,
+                            final Outputview outputview,
+                            final NumberGenerator numberGenerator) {
         this.inputview = inputview;
         this.outputview = outputview;
         this.numberGenerator = numberGenerator;
@@ -24,14 +25,21 @@ public class RacingController {
         String moveCarName = inputview.getMoveCarName();
         int chance = inputview.getChance();
         Cars cars = Cars.from(moveCarName);
+        raceCars(chance, cars);
+        displayWinner(cars);
+    }
 
+    public WinnerResponse raceCars(int chance, Cars cars) {
         for (int i = 0; i < chance; i++) {
             cars.moveCars(1, numberGenerator);
-            WinnerResponse winnerResponse = new WinnerResponse(cars.getCarStates(), cars.findsWinner());
-            outputview.printRacingStep(winnerResponse);
+            ResultResponse resultResponse = new ResultResponse(cars.getCarStates(), cars.findsWinner());
+            outputview.printRacingStep(resultResponse);
         }
+        return new WinnerResponse(cars.getCarStates(), cars.findsWinner());
+    }
 
-        List<String> winners = cars.findsWinner();
-        outputview.printFinalWinner(winners);
+    private void displayWinner(Cars cars) {
+        ResultResponse resultResponse = new ResultResponse(cars.getCarStates(), cars.findsWinner());
+        outputview.printRacingWinner(resultResponse);
     }
 }

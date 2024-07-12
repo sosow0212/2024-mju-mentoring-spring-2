@@ -1,6 +1,7 @@
 package com.racing.view;
 
-import com.racing.exception.NullInputException;
+
+import com.racing.view.exception.NullInputException;
 
 import java.util.Scanner;
 

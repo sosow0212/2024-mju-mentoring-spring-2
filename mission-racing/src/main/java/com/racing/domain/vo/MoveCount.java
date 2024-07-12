@@ -1,4 +1,4 @@
-package com.racing.vo;
+package com.racing.domain.vo;
 
 public class MoveCount {
 

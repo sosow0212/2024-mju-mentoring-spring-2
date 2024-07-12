@@ -1,6 +1,6 @@
-package com.racing.vo;
+package com.racing.domain.vo;
 
-import com.racing.exception.NullInputException;
+import com.racing.view.exception.NullInputException;
 
 public class Name {
 

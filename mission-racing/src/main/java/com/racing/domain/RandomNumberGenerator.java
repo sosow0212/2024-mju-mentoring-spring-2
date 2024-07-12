@@ -1,7 +1,9 @@
 package com.racing.domain;
 
+import org.springframework.stereotype.Component;
 
-public class RandomNumbeGenerate implements NumberGenerator {
+@Component
+public class RandomNumberGenerator implements NumberGenerator {
     @Override
     public int generateRandom() {
         return (int) (Math.random() * 10);
