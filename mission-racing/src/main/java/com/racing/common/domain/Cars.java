@@ -56,8 +56,4 @@ public class Cars {
                 .map(Car::getMoveCount)
                 .collect(Collectors.toList());
     }
-
-    public List<Car> getCars() {
-        return cars;
-    }
 }

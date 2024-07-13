@@ -1,26 +1,35 @@
 package com.racing.web.service;
 
-import com.racing.common.view.dto.ResultResponse;
-
 import com.racing.common.domain.Cars;
 import com.racing.common.domain.NumberGenerator;
+
+import com.racing.common.dto.ResultResponse;
 
 import com.racing.web.service.dto.StartRaceRequest;
 
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class RacingService {
 
     private final NumberGenerator numberGenerator;
+    private Cars cars;
 
     public RacingService(NumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
     }
 
+    public void registerCars(StartRaceRequest request) {
+        cars = Cars.from(request.carNames());
+    }
+
     public ResultResponse startRace(StartRaceRequest request) {
-        Cars cars = Cars.from(request.carNames());
         return raceCars(request.tryCount(), cars);
+    }
+
+    public ResultResponse getRaceResult() {
+        return new ResultResponse(cars.getCarStates(), cars.findsWinner());
     }
 
     private ResultResponse raceCars(int chance, Cars cars) {

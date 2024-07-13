@@ -1,13 +1,11 @@
 package com.racing.web.controller;
 
-import com.racing.common.view.dto.ResultResponse;
+import com.racing.common.dto.ResultResponse;
+
 import com.racing.web.service.RacingService;
 import com.racing.web.service.dto.StartRaceRequest;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/cars")
@@ -19,8 +17,18 @@ public class WebController {
         this.racingService = racingService;
     }
 
+    @PostMapping
+    public void registerCars(@RequestBody StartRaceRequest request) {
+        racingService.registerCars(request);
+    }
+
     @PostMapping("/racing")
     public ResultResponse startRace(@RequestBody StartRaceRequest request) {
         return racingService.startRace(request);
+    }
+
+    @GetMapping
+    public ResultResponse getRaceResult() {
+        return racingService.getRaceResult();
     }
 }
