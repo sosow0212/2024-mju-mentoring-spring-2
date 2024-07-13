@@ -1,11 +1,11 @@
-package com.racing.view;
+package com.racing.console.view;
 
 
-import com.racing.view.exception.NullInputException;
+import com.racing.console.view.exception.NullInputException;
 
 import java.util.Scanner;
 
-public class Inputview {
+public class InputView {
     private final Scanner scanner = new Scanner(System.in);
 
     private NullInputException nullInputException;

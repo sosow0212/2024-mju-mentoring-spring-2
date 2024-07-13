@@ -1,4 +1,4 @@
-package com.racing.domain;
+package com.racing.common.domain;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,9 +49,9 @@ public class Cars {
                 .orElse(MAX_MOVE_COUNT);
     }
 
-    public List<String> getCarStates() {
+    public List<Integer> getCarStates() {
         return cars.stream()
-                .map(car -> car.getName() + ": " + "-".repeat(car.getMoveCount()))
+                .map(Car::getMoveCount)
                 .collect(Collectors.toList());
     }
 }

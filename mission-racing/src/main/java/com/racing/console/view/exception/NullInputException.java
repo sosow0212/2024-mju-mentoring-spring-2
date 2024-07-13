@@ -1,4 +1,4 @@
-package com.racing.view.exception;
+package com.racing.console.view.exception;
 
 public class NullInputException extends RuntimeException {
 

@@ -1,8 +1,9 @@
-package com.racing.controller;
+package com.racing.web.controller;
 
-import com.racing.controller.dto.WinnerResponse;
-import com.racing.service.RacingService;
-import com.racing.service.dto.StartRaceRequest;
+import com.racing.common.controller.dto.WinnerResponse;
+import com.racing.web.service.RacingService;
+import com.racing.web.service.dto.StartRaceRequest;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

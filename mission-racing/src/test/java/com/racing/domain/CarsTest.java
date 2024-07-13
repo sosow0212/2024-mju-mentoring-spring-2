@@ -1,5 +1,7 @@
 package com.racing.domain;
 
+import com.racing.common.domain.Cars;
+import com.racing.common.domain.NumberGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

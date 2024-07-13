@@ -1,21 +1,23 @@
-package com.racing.controller;
+package com.racing.console.controller;
 
-import com.racing.controller.dto.WinnerResponse;
-import com.racing.domain.Cars;
-import com.racing.domain.NumberGenerator;
-import com.racing.view.Inputview;
-import com.racing.view.Outputview;
-import com.racing.view.dto.ResultResponse;
+import com.racing.common.controller.dto.WinnerResponse;
+import com.racing.common.domain.Cars;
+import com.racing.common.domain.NumberGenerator;
+import com.racing.console.view.InputView;
+import com.racing.console.view.OutputView;
+import com.racing.console.view.dto.ResultResponse;
 
 public class RacingController {
 
-    private final Inputview inputview;
-    private final Outputview outputview;
+    private final InputView inputview;
+    private final OutputView outputview;
     private final NumberGenerator numberGenerator;
 
-    public RacingController(final Inputview inputview,
-                            final Outputview outputview,
-                            final NumberGenerator numberGenerator) {
+    public RacingController(
+            final InputView inputview,
+            final OutputView outputview,
+            final NumberGenerator numberGenerator
+    ) {
         this.inputview = inputview;
         this.outputview = outputview;
         this.numberGenerator = numberGenerator;

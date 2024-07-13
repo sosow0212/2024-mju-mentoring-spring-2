@@ -1,8 +1,8 @@
-package com.racing.view;
+package com.racing.console.view;
 
-import com.racing.view.dto.ResultResponse;
+import com.racing.console.view.dto.ResultResponse;
 
-public class Outputview {
+public class OutputView {
 
     private ResultResponse resultResponse;
 

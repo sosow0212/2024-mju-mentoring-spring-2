@@ -1,4 +1,4 @@
-package com.racing.view.dto;
+package com.racing.console.view.dto;
 
 import lombok.Getter;
 

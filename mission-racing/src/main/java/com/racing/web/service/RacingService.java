@@ -1,9 +1,9 @@
-package com.racing.service;
+package com.racing.web.service;
 
-import com.racing.controller.dto.WinnerResponse;
-import com.racing.domain.Cars;
-import com.racing.domain.NumberGenerator;
-import com.racing.service.dto.StartRaceRequest;
+import com.racing.common.controller.dto.WinnerResponse;
+import com.racing.common.domain.Cars;
+import com.racing.common.domain.NumberGenerator;
+import com.racing.web.service.dto.StartRaceRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,12 +15,8 @@ public class RacingService {
         this.numberGenerator = numberGenerator;
     }
 
-    public Cars createCars(String carNames) {
-        return Cars.from(carNames);
-    }
-
     public WinnerResponse startRace(StartRaceRequest request) {
-        Cars cars = createCars(request.carNames());
+        Cars cars = Cars.from(request.carNames());
         return raceCars(request.tryCount(), cars);
     }
 

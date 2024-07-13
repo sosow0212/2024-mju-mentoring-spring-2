@@ -1,4 +1,4 @@
-package com.racing.domain;
+package com.racing.common.domain;
 
 public interface NumberGenerator {
     int generateRandom();
