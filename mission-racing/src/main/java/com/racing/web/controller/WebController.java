@@ -1,6 +1,6 @@
 package com.racing.web.controller;
 
-import com.racing.common.controller.dto.WinnerResponse;
+import com.racing.common.view.dto.ResultResponse;
 import com.racing.web.service.RacingService;
 import com.racing.web.service.dto.StartRaceRequest;
 
@@ -20,7 +20,7 @@ public class WebController {
     }
 
     @PostMapping("/racing")
-    public WinnerResponse startRace(@RequestBody StartRaceRequest request) {
+    public ResultResponse startRace(@RequestBody StartRaceRequest request) {
         return racingService.startRace(request);
     }
 }

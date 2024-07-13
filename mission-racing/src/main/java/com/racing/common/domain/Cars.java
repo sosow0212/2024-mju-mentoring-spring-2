@@ -1,5 +1,6 @@
 package com.racing.common.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ public class Cars {
 
     public static Cars from(final String names) {
         List<Car> cars = Arrays.stream(names.split(SPLIT_COMMA))
+                .map(String::trim)
                 .map(Car::new)
                 .collect(Collectors.toList());
         return new Cars(cars);
@@ -53,5 +55,9 @@ public class Cars {
         return cars.stream()
                 .map(Car::getMoveCount)
                 .collect(Collectors.toList());
+    }
+
+    public List<Car> getCars() {
+        return cars;
     }
 }

@@ -1,47 +1,52 @@
 package com.racing.console.controller;
 
-import com.racing.common.controller.dto.WinnerResponse;
 import com.racing.common.domain.Cars;
 import com.racing.common.domain.NumberGenerator;
+import com.racing.common.view.dto.ResultResponse;
 import com.racing.console.view.InputView;
 import com.racing.console.view.OutputView;
-import com.racing.console.view.dto.ResultResponse;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class RacingController {
 
-    private final InputView inputview;
-    private final OutputView outputview;
+    private final InputView inputView;
+    private final OutputView outputView;
     private final NumberGenerator numberGenerator;
 
     public RacingController(
-            final InputView inputview,
-            final OutputView outputview,
+            final InputView inputView,
+            final OutputView outputView,
             final NumberGenerator numberGenerator
     ) {
-        this.inputview = inputview;
-        this.outputview = outputview;
+        this.inputView = inputView;
+        this.outputView = outputView;
         this.numberGenerator = numberGenerator;
     }
 
     public void run() {
-        String moveCarName = inputview.getMoveCarName();
-        int chance = inputview.getChance();
+        String moveCarName = inputView.getMoveCarName();
+        int chance = inputView.getChance();
+        List<String> carNames = Arrays.asList(moveCarName.split(","));
         Cars cars = Cars.from(moveCarName);
-        raceCars(chance, cars);
-        displayWinner(cars);
+        raceCars(chance, cars, carNames);
     }
 
-    public WinnerResponse raceCars(int chance, Cars cars) {
+    public void raceCars(int chance, Cars cars, List<String> carNames) {
         for (int i = 0; i < chance; i++) {
             cars.moveCars(1, numberGenerator);
             ResultResponse resultResponse = new ResultResponse(cars.getCarStates(), cars.findsWinner());
-            outputview.printRacingStep(resultResponse);
+            displayRacingStep(resultResponse, carNames);
         }
-        return new WinnerResponse(cars.getCarStates(), cars.findsWinner());
+        displayWinner(new ResultResponse(cars.getCarStates(), cars.findsWinner()));
     }
 
-    private void displayWinner(Cars cars) {
-        ResultResponse resultResponse = new ResultResponse(cars.getCarStates(), cars.findsWinner());
-        outputview.printRacingWinner(resultResponse);
+    private void displayRacingStep(ResultResponse resultResponse, List<String> carNames) {
+        outputView.printRacingStep(resultResponse, carNames);
+    }
+
+    private void displayWinner(ResultResponse winnerResponse) {
+        outputView.printRacingWinner(winnerResponse);
     }
 }

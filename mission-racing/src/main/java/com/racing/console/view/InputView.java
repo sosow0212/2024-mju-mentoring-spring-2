@@ -1,14 +1,10 @@
 package com.racing.console.view;
 
-
 import com.racing.console.view.exception.NullInputException;
-
 import java.util.Scanner;
 
 public class InputView {
     private final Scanner scanner = new Scanner(System.in);
-
-    private NullInputException nullInputException;
 
     public String getMoveCarName() {
         System.out.println("자동차 이름 입력 (쉼표로 구분하여 입력하세요): ");
@@ -19,7 +15,7 @@ public class InputView {
 
     private void nameException(final String input) {
         if (input.isBlank()) {
-            throw nullInputException;
+            throw new NullInputException();
         }
     }
 
