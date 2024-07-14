@@ -5,22 +5,22 @@ import com.racing.model.Cars;
 import com.racing.view.InputView;
 import com.racing.view.OutputView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarController {
 
-    InputView inputView;
-    OutputView outputView;
-    private List<Car> carList;
+    private final InputView inputView;
+    private final OutputView outputView;
 
-    public CarController(InputView inputView, OutputView outputView, List<Car> carList) {
+    public CarController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.carList = carList;
     }
 
     public void Run() {
         String inputNames = inputView.inputName();
+        List<Car> carList = new ArrayList<>();
         Cars cars = new Cars(carList);
         cars.generateCarList(inputNames);
         int inputCounts = inputView.inputCount();
@@ -33,5 +33,4 @@ public class CarController {
         List<String> winners = cars.carRank(carList);
         outputView.printWinners(winners);
     }
-
 }

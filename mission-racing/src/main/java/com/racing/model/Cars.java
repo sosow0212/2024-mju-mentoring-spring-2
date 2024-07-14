@@ -1,14 +1,18 @@
 package com.racing.model;
 
+import com.racing.Exception.NameLengthException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Cars {
 
-    private List<Car> carlist;
+    private static final int NAME_MAX_LENGTH = 5;
 
-    public Cars(List<Car> carList) {
-        this.carlist = carList;
+    private List<Car> cars;
+
+    public Cars(List<Car> cars) {
+        this.cars = cars;
     }
 
     public Map<String, Integer> getCarState(List<Car> carlist) {
@@ -24,19 +28,20 @@ public class Cars {
         for (String name : splitName) {
             validateNameLength(name);
             Car car = new Car(name);
-            carlist.add(car);
+            cars.add(car);
         }
     }
 
     private void validateNameLength(String name) {
-        if (name.length() > 5) {
-            throw new IllegalArgumentException("이름은 5자 이내로 입력 가능합니다.");
+        if (name.length() > NAME_MAX_LENGTH) {
+            throw new NameLengthException();
         }
     }
 
     public void carsMove() {
-        for (Car car : carlist) {
-            car.carMovePosition();
+        for (Car car : cars) {
+            int randomNumber = car.generateRandomNumber();
+            car.carMovePosition(randomNumber);
         }
     }
 

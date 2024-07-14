@@ -1,5 +1,6 @@
 package com.racing;
 
+import com.racing.Exception.NameLengthException;
 import com.racing.model.Car;
 import com.racing.model.Cars;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class CarsTest {
         Cars cars = new Cars(carList);
         String inputName = "minji,haerin";
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(NameLengthException.class, () -> {
             cars.generateCarList(inputName);
         });
 
@@ -60,11 +61,11 @@ public class CarsTest {
         List<Car> carList = new ArrayList<>();
         Cars cars = new Cars(carList);
         carList.add(new Car("car1"));
-        carList.get(0).carMovePosition();
         carList.add(new Car("car2"));
 
-        List<String> winners = cars.carRank(carList);
+        carList.get(0).carMovePosition(5);
 
+        List<String> winners = cars.carRank(carList);
         assertEquals(1, winners.size());
         assertEquals("car1", winners.get(0));
     }
