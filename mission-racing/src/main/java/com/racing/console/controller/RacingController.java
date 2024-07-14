@@ -34,12 +34,16 @@ public class RacingController {
     }
 
     public void raceCars(int chance, Cars cars, List<String> carNames) {
+        moveCarResponse(chance, cars, carNames);
+        displayWinner(new ResultResponse(cars.getCarStates(), cars.findsWinner()));
+    }
+
+    private void moveCarResponse(final int chance, final Cars cars, final List<String> carNames) {
         for (int i = 0; i < chance; i++) {
             cars.moveCars(1, numberGenerator);
             ResultResponse resultResponse = new ResultResponse(cars.getCarStates(), cars.findsWinner());
             displayRacingStep(resultResponse, carNames);
         }
-        displayWinner(new ResultResponse(cars.getCarStates(), cars.findsWinner()));
     }
 
     private void displayRacingStep(ResultResponse resultResponse, List<String> carNames) {
