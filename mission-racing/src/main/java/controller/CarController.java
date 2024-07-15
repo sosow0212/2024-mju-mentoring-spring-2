@@ -10,15 +10,15 @@ import java.util.List;
 public class CarController {
 
     private static final int INITIAL_NUMBER = 0;
-    private static final CreateRandomNumber createRandomNUmber = new CarRandomNumber();
 
     private final InputVIew inputVIew;
     private final OutputView outputView;
+    private final CreateRandomNumber createRandomNumber;
 
-
-    public CarController(InputVIew inputVIew, OutputView outputView) {
+    public CarController(InputVIew inputVIew, OutputView outputView, CreateRandomNumber createRandomNumber) {
         this.inputVIew = inputVIew;
         this.outputView = outputView;
+        this.createRandomNumber = createRandomNumber;
     }
 
     public void run() {
@@ -43,7 +43,7 @@ public class CarController {
 
     private void moveCar(List<Car> carBundle) {
         for (Car car : carBundle) {
-            car.moveCar(CarController.createRandomNUmber);
+            car.moveCar(createRandomNumber);
             outputView.showCar(car.getCarName(), car.getMoveCount());
         }
         outputView.separateLine();
