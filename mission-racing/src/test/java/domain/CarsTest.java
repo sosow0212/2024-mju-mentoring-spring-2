@@ -1,5 +1,6 @@
 package domain;
 
+import com.racing.console.domain.Cars;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

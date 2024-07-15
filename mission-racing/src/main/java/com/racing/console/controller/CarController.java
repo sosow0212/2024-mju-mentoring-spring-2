@@ -1,8 +1,8 @@
-package controller;
+package com.racing.console.controller;
 
-import domain.*;
-import view.InputVIew;
-import view.OutputView;
+import com.racing.console.domain.*;
+import com.racing.console.view.InputVIew;
+import com.racing.console.view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;

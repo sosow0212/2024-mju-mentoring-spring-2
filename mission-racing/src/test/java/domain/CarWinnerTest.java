@@ -1,6 +1,10 @@
 package domain;
 
 import FakeRandomNumber.FakeRandomNumber;
+import com.racing.console.domain.Car;
+import com.racing.console.domain.CarWinner;
+import com.racing.console.domain.Cars;
+import com.racing.console.domain.CreateRandomNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

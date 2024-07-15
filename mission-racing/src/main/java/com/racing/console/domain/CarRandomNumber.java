@@ -1,4 +1,4 @@
-package domain;
+package com.racing.console.domain;
 
 import java.util.Random;
 
