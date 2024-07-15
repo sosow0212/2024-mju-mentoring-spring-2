@@ -1,10 +1,12 @@
-import controller.CarController;
-import domain.CarRandomNumber;
-import domain.CreateRandomNumber;
-import view.InputVIew;
-import view.OutputView;
+package com.racing.console;
 
-public class Application {
+import com.racing.console.controller.CarController;
+import com.racing.common.domain.CarRandomNumber;
+import com.racing.common.domain.CreateRandomNumber;
+import com.racing.console.view.InputVIew;
+import com.racing.console.view.OutputView;
+
+public class ConsoleApplication {
 
     public static void main(String[] args) {
         OutputView outputView = new OutputView();

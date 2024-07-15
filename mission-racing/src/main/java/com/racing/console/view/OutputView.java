@@ -1,4 +1,4 @@
-package view;
+package com.racing.console.view;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package domain;
+package com.racing.common.domain;
+
+import com.racing.common.domain.vo.Name;
 
 public class Car {
 
@@ -6,10 +8,10 @@ public class Car {
     private static final int CAR_MOVE_BOUNDARY = 4;
 
     public int moveCount = INITIAL_NUMBER;
-    private final String carName;
+    private final Name carName;
 
     public Car(String carName) {
-        this.carName = carName;
+        this.carName = Name.from(carName);
     }
 
     public void moveCar(CreateRandomNumber createRandomNumber) {
@@ -23,6 +25,6 @@ public class Car {
     }
 
     public String getCarName() {
-        return carName;
+        return carName.getName();
     }
 }

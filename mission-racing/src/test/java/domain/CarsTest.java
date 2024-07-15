@@ -1,5 +1,7 @@
 package domain;
 
+import com.racing.common.domain.Cars;
+import com.racing.common.domain.vo.Name;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ class CarsTest {
     @DisplayName("차 개수 반환 테스트")
     void getCars() {
         // given
-        List<String> carNames = List.of("aa","bb","cc");
+        List<Name> carNames = List.of(new Name("aa"), new Name("bb"), new Name("cc"));
         Cars cars = new Cars(carNames);
         int expected = 3;
 

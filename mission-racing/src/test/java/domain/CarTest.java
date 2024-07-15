@@ -1,6 +1,9 @@
 package domain;
 
 import FakeRandomNumber.FakeRandomNumber;
+import com.racing.common.domain.Car;
+import com.racing.common.domain.CreateRandomNumber;
+import com.racing.common.domain.vo.Name;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -29,8 +32,8 @@ class CarTest {
     @DisplayName("차 이름 반환 테스트")
     void getCarName() {
         // given
-        String carName = "aaa";
-        Car car = new Car(carName);
+        Name carName = new Name("aaa");
+        Car car = new Car(carName.getName());
         String expected = "aaa";
 
         // when

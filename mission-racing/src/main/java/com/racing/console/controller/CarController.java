@@ -1,8 +1,9 @@
-package controller;
+package com.racing.console.controller;
 
-import domain.*;
-import view.InputVIew;
-import view.OutputView;
+import com.racing.common.domain.*;
+import com.racing.common.domain.vo.Name;
+import com.racing.console.view.InputVIew;
+import com.racing.console.view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CarController {
         makeCarWinner(cars);
     }
 
-    private List<String> getCarNames() {
+    private List<Name> getCarNames() {
         outputView.inputCarNamesGuide();
         CarNameParser carNameParser = new CarNameParser(inputVIew.inputCarNames());
         return carNameParser.getCarNames();

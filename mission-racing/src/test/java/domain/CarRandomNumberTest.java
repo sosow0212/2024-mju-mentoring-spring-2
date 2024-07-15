@@ -1,9 +1,9 @@
 package domain;
 
 import FakeRandomNumber.FakeRandomNumber;
+import com.racing.common.domain.CreateRandomNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 

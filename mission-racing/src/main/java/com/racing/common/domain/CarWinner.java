@@ -1,4 +1,4 @@
-package domain;
+package com.racing.common.domain;
 
 import java.util.List;
 import java.util.ArrayList;
