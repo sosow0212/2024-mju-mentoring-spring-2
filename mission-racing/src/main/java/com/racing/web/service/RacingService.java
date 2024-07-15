@@ -9,11 +9,6 @@ import com.racing.web.service.dto.CarResponse;
 import com.racing.web.service.dto.StartRaceRequest;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.HashMap;
-import java.util.Map;
-
 
 @Service
 public class RacingService {

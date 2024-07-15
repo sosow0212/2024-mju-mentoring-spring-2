@@ -1,7 +1,9 @@
 package com.racing.console;
 
 import com.racing.console.controller.RacingController;
+
 import com.racing.common.domain.RandomNumberGenerator;
+
 import com.racing.console.view.InputView;
 import com.racing.console.view.OutputView;
 

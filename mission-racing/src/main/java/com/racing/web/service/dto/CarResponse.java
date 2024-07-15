@@ -1,7 +1,5 @@
 package com.racing.web.service.dto;
 
-import com.racing.common.domain.Car;
-
 public class CarResponse {
 
     private final String name;

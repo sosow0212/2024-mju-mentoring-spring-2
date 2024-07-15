@@ -1,6 +1,7 @@
 package com.racing.console.view;
 
 import com.racing.console.view.exception.NullInputException;
+
 import java.util.Scanner;
 
 public class InputView {
