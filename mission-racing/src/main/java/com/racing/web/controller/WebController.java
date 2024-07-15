@@ -3,6 +3,7 @@ package com.racing.web.controller;
 import com.racing.common.dto.ResultResponse;
 
 import com.racing.web.service.RacingService;
+import com.racing.web.service.dto.CarResponse;
 import com.racing.web.service.dto.StartRaceRequest;
 
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class WebController {
         this.racingService = racingService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public void registerCars(@RequestBody StartRaceRequest request) {
         racingService.registerCars(request);
     }
@@ -30,5 +31,10 @@ public class WebController {
     @GetMapping
     public ResultResponse getRaceResult() {
         return racingService.getRaceResult();
+    }
+
+    @GetMapping(params = "name")
+    public CarResponse getRaceResultByName(@RequestParam String name) {
+        return racingService.getRaceResultByName(name);
     }
 }

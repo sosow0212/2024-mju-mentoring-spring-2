@@ -5,9 +5,14 @@ import com.racing.common.domain.NumberGenerator;
 
 import com.racing.common.dto.ResultResponse;
 
+import com.racing.web.service.dto.CarResponse;
 import com.racing.web.service.dto.StartRaceRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -37,5 +42,13 @@ public class RacingService {
             cars.moveCars(1, numberGenerator);
         }
         return new ResultResponse(cars.getCarStates(), cars.findsWinner());
+    }
+
+    public CarResponse getRaceResultByName(String name) {
+        return cars.getCars().stream()
+                .filter(car -> car.getName().equals(name))
+                .findFirst()
+                .map(car -> new CarResponse(car.getName(), car.getMoveCount()))
+                .orElse(new CarResponse(name, 0));
     }
 }
