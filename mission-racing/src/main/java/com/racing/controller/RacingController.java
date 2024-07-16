@@ -35,7 +35,7 @@ public class RacingController {
     }
 
     @GetMapping(params = "name")
-    public Map<String, Integer> getCarStatus(@RequestParam String name) {
+    public Map<String, Integer> getCarStatus(@RequestParam("name") String name) {
         return racingService.getCarStatus(name);
     }
 }
