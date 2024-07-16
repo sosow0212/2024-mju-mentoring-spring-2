@@ -5,7 +5,6 @@ import com.racing.web.service.dto.CreateCars;
 
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api")
 public class WebController {
