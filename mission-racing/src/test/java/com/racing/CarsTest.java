@@ -65,7 +65,7 @@ public class CarsTest {
 
         carList.get(0).carMovePosition(5);
 
-        List<String> winners = cars.carRank(carList);
+        List<String> winners = cars.carRank();
         assertEquals(1, winners.size());
         assertEquals("car1", winners.get(0));
     }

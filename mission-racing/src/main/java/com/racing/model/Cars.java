@@ -8,16 +8,15 @@ import java.util.stream.Collectors;
 public class Cars {
 
     private static final int NAME_MAX_LENGTH = 5;
-
     private List<Car> cars;
 
     public Cars(List<Car> cars) {
         this.cars = cars;
     }
 
-    public Map<String, Integer> getCarState(List<Car> carlist) {
+    public Map<String, Integer> getCarState() {
         Map<String, Integer> carState = new HashMap<>();
-        for (Car car : carlist) {
+        for (Car car : cars) {
             carState.put(car.getName(), car.getPosition());
         }
         return carState;
@@ -45,11 +44,22 @@ public class Cars {
         }
     }
 
-    public List<String> carRank(List<Car> carlist) {
-        return carlist.stream()
+    public List<String> carRank() {
+        return cars.stream()
                 .max(Comparator.comparingInt(Car::getPosition))
                 .stream()
                 .map(Car::getName)
                 .collect(Collectors.toList());
+    }
+
+    public Car getCarByName(String name){
+        return cars.stream()
+                .filter(car -> car.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<Car> getCarList(){
+        return cars;
     }
 }

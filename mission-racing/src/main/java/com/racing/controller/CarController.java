@@ -27,10 +27,10 @@ public class CarController {
 
         for (int count = 0; count < inputCounts; count++) {
             cars.carsMove();
-            outputView.printRunResult(cars.getCarState(carList));
+            outputView.printRunResult(cars.getCarState());
         }
 
-        List<String> winners = cars.carRank(carList);
+        List<String> winners = cars.carRank();
         outputView.printWinners(winners);
     }
 }
