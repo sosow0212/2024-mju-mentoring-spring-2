@@ -3,7 +3,7 @@ package com.racing.console.controller;
 import com.racing.common.domain.Cars;
 import com.racing.common.domain.NumberGenerator;
 
-import com.racing.common.dto.ResultResponse;
+import com.racing.console.dto.ResultResponse;
 
 import com.racing.console.view.InputView;
 import com.racing.console.view.OutputView;

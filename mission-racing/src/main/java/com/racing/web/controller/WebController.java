@@ -1,7 +1,5 @@
 package com.racing.web.controller;
 
-import com.racing.common.dto.ResultResponse;
-
 import com.racing.web.service.RacingService;
 
 import com.racing.web.service.dto.CarResponse;
@@ -9,8 +7,10 @@ import com.racing.web.service.dto.StartRaceRequest;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/cars")
 public class WebController {
 
     private final RacingService racingService;
@@ -19,23 +19,23 @@ public class WebController {
         this.racingService = racingService;
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public void registerCars(@RequestBody StartRaceRequest request) {
         racingService.registerCars(request);
     }
 
     @PostMapping("/racing")
-    public ResultResponse startRace(@RequestBody StartRaceRequest request) {
+    public CarResponse startRace(@RequestBody StartRaceRequest request) {
         return racingService.startRace(request);
     }
 
     @GetMapping
-    public ResultResponse getRaceResult(@RequestBody StartRaceRequest request) {
-        return racingService.getRaceResult(request);
+    public CarResponse getRaceResult() {
+        return racingService.getRaceResult();
     }
 
-    @GetMapping("/cars")
-    public CarResponse getRaceResultByName(@RequestParam String name) {
+    @GetMapping(params = "name")
+    public Map<String, Integer> getRaceResultByName(@RequestParam("name") String name) {
         return racingService.getRaceResultByName(name);
     }
 }

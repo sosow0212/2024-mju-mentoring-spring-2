@@ -1,4 +1,4 @@
-package com.racing.common.dto;
+package com.racing.console.dto;
 
 import java.util.List;
 

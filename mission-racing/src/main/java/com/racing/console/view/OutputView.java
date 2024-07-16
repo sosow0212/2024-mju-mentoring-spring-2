@@ -1,6 +1,6 @@
 package com.racing.console.view;
 
-import com.racing.common.dto.ResultResponse;
+import com.racing.console.dto.ResultResponse;
 
 import java.util.List;
 

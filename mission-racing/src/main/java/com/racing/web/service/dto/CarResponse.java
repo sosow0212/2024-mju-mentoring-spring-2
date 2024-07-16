@@ -1,20 +1,23 @@
 package com.racing.web.service.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class CarResponse {
 
-    private final String name;
-    private final int moveCount;
+    private final List<Map<String, Integer>> carStates;
+    private final List<String> winners;
 
-    public CarResponse(String name, int moveCount) {
-        this.name = name;
-        this.moveCount = moveCount;
+    public CarResponse(List<Map<String, Integer>> carStates, List<String> winners) {
+        this.carStates = carStates;
+        this.winners = winners;
     }
 
-    public String getName() {
-        return name;
+    public List<Map<String, Integer>> getCarStates() {
+        return carStates;
     }
 
-    public int getMoveCount() {
-        return moveCount;
+    public List<String> getWinners() {
+        return winners;
     }
 }
