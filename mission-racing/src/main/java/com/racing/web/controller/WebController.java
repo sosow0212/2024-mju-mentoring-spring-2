@@ -10,7 +10,7 @@ import com.racing.web.service.dto.StartRaceRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/api")
 public class WebController {
 
     private final RacingService racingService;
@@ -30,11 +30,11 @@ public class WebController {
     }
 
     @GetMapping
-    public ResultResponse getRaceResult() {
-        return racingService.getRaceResult();
+    public ResultResponse getRaceResult(@RequestBody StartRaceRequest request) {
+        return racingService.getRaceResult(request);
     }
 
-    @GetMapping(params = "name")
+    @GetMapping("/cars")
     public CarResponse getRaceResultByName(@RequestParam String name) {
         return racingService.getRaceResultByName(name);
     }

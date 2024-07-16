@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class RacingService {
 
     private final NumberGenerator numberGenerator;
+    private CarResponse carResponse;
     private Cars cars;
 
     public RacingService(NumberGenerator numberGenerator) {
@@ -28,7 +29,7 @@ public class RacingService {
         return raceCars(request.tryCount(), cars);
     }
 
-    public ResultResponse getRaceResult() {
+    public ResultResponse getRaceResult(StartRaceRequest request) {
         return new ResultResponse(cars.getCarStates(), cars.findsWinner());
     }
 
@@ -43,7 +44,7 @@ public class RacingService {
         return cars.getCars().stream()
                 .filter(car -> car.getName().equals(name))
                 .findFirst()
-                .map(car -> new CarResponse(car.getName(), car.getMoveCount()))
+                .map(car -> new CarResponse(car.getName(), carResponse.getMoveCount()))
                 .orElse(new CarResponse(name, 0));
     }
 }

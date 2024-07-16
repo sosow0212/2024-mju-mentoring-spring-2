@@ -15,6 +15,6 @@ class NameTest {
 
         // when&then
         assertThatThrownBy(() -> Name.from(carNames))
-                .isInstanceOf(NullInputException.class); // Expect NullInputException
+                .isInstanceOf(NullInputException.class);
     }
 }
