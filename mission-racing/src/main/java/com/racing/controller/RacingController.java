@@ -1,7 +1,6 @@
 package com.racing.controller;
 
 import com.racing.service.RacingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -12,7 +11,6 @@ public class RacingController {
 
     private final RacingService racingService;
 
-    @Autowired
     public RacingController(RacingService racingService) {
         this.racingService = racingService;
     }

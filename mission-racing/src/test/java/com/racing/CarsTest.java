@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarsTest {
@@ -18,14 +19,9 @@ public class CarsTest {
         Cars cars = new Cars(carList);
         String inputName = "minji,haerin";
 
-        Exception exception = assertThrows(NameLengthException.class, () -> {
-            cars.generateCarList(inputName);
-        });
-
-        String expectedMessage = "이름은 5자 이내로 입력 가능합니다.";
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertThatThrownBy(() -> cars.generateCarList(inputName))
+                .isInstanceOf(NameLengthException.class)
+                .hasMessageContaining("이름은 5자 이내로 입력 가능합니다.");
     }
 
     @Test
@@ -65,9 +61,13 @@ public class CarsTest {
 
         carList.get(0).carMovePosition(5);
 
-        List<String> winners = cars.carRank();
-        assertEquals(1, winners.size());
-        assertEquals("car1", winners.get(0));
+        assertAll("Winners",
+                () -> {
+                    List<String> winners = cars.carRank();
+                    assertEquals(1, winners.size());
+                    assertEquals("car1", winners.get(0));
+                }
+        );
     }
 }
 
