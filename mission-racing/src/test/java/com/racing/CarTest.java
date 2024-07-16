@@ -10,7 +10,7 @@ public class CarTest {
 
     @Test
     void 랜덤숫자_범위_테스트() {
-        CarRandomNumber carRandomNumber=new CarRandomNumber();
+        CarRandomNumber carRandomNumber = new CarRandomNumber();
         int randomNumber = carRandomNumber.getRandomNumber();
 
         Assertions.assertTrue(randomNumber >= 0 && randomNumber <= 9);

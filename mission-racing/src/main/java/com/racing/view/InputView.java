@@ -6,8 +6,8 @@ public class InputView {
 
     private final Scanner input;
 
-    public InputView(Scanner input){
-        this.input=input;
+    public InputView(Scanner input) {
+        this.input = input;
     }
 
     public String inputName() {

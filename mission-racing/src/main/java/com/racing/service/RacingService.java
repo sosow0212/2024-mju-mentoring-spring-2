@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class RacingService {
 
-    private Cars cars=new Cars(new ArrayList<>());
+    private Cars cars = new Cars(new ArrayList<>());
     private int tryCount;
 
     public void registerCars(String names, int tryCount) {
@@ -27,7 +27,7 @@ public class RacingService {
         }
     }
 
-    public List<Car> getCars(){
+    public List<Car> getCars() {
         return cars.getCarList();
     }
 

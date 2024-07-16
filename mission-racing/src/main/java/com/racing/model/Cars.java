@@ -52,14 +52,14 @@ public class Cars {
                 .collect(Collectors.toList());
     }
 
-    public Car getCarByName(String name){
+    public Car getCarByName(String name) {
         return cars.stream()
                 .filter(car -> car.getName().equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
-    public List<Car> getCarList(){
+    public List<Car> getCarList() {
         return cars;
     }
 }

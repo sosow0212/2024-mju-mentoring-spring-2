@@ -15,17 +15,17 @@ import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 @SpringBootTest
 public class RacingServiceTest {
     @Test
-    void 자동차_등록_테스트(){
-        RacingService racingService= new RacingService();
+    void 자동차_등록_테스트() {
+        RacingService racingService = new RacingService();
         racingService.registerCars("car1,car2,car3", 5);
 
-        List<Car> cars= racingService.getCars();
+        List<Car> cars = racingService.getCars();
         Assertions.assertEquals(3, cars.size());
     }
 
     @Test
-    void 개별_자동차_조회_테스트(){
-        RacingService racingService= new RacingService();
+    void 개별_자동차_조회_테스트() {
+        RacingService racingService = new RacingService();
         racingService.registerCars("car1,car2,car3", 5);
         racingService.race();
 
