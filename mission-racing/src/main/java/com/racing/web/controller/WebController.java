@@ -3,11 +3,10 @@ package com.racing.web.controller;
 import com.racing.web.service.RacingService;
 
 import com.racing.web.service.dto.CarResponse;
+import com.racing.web.service.dto.CarState;
 import com.racing.web.service.dto.StartRaceRequest;
 
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cars")
@@ -35,7 +34,8 @@ public class WebController {
     }
 
     @GetMapping(params = "name")
-    public Map<String, Integer> getRaceResultByName(@RequestParam("name") String name) {
+    public CarState getRaceResultByName(@RequestParam("name") String name) {
         return racingService.getRaceResultByName(name);
     }
+
 }

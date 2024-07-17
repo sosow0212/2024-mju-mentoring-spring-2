@@ -33,4 +33,5 @@ class MoveCountTest {
         // then
         assertNotEquals(moveCount.getMoveCount(), 1);
     }
+
 }

@@ -3,13 +3,13 @@ package com.racing.web.service;
 import com.racing.common.domain.Car;
 import com.racing.common.domain.Cars;
 import com.racing.common.domain.NumberGenerator;
-
 import com.racing.web.service.dto.CarResponse;
+import com.racing.web.service.dto.CarState;
 import com.racing.web.service.dto.StartRaceRequest;
-
+import com.racing.web.service.exception.NotFoundCar;
+import com.racing.web.service.exception.CarNullException;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,37 +25,42 @@ public class RacingService {
     }
 
     public void registerCars(StartRaceRequest request) {
-        cars = Cars.from(request.carNames());
+        this.cars = Cars.from(request.getCarNames());
     }
 
     public CarResponse startRace(StartRaceRequest request) {
-        cars.moveCars(request.tryCount(), numberGenerator);
-        return getRaceResult();
+        validateCarState();
+        cars.moveCars(request.getTryCount(), numberGenerator);
+        return createCarResponse();
     }
 
     public CarResponse getRaceResult() {
+        validateCarState();
+        return createCarResponse();
+    }
+
+    public CarState getRaceResultByName(String name) {
+        validateCarState();
+        Car car = cars.getCars().stream()
+                .filter(c -> c.getName().equals(name))
+                .findFirst()
+                .orElseThrow(NotFoundCar::new);
+
+        return new CarState(car.getName(), car.getMoveCount());
+    }
+
+    private CarResponse createCarResponse() {
         List<String> winners = cars.findsWinner();
         List<Map<String, Integer>> carStates = cars.getCars().stream()
-                .map(RacingService::MapMoveCount)
+                .map(car -> Map.of(car.getName(), car.getMoveCount()))
                 .collect(Collectors.toList());
         return new CarResponse(carStates, winners);
     }
 
-    public Map<String, Integer> getRaceResultByName(String name) {
-        Car car = carName(name);
-        return MapMoveCount(car);
+    private void validateCarState() {
+        if (this.cars == null) {
+            throw new CarNullException();
+        }
     }
 
-    private static Map<String, Integer> MapMoveCount(final Car car) {
-        Map<String, Integer> result = new LinkedHashMap<>();
-        result.put(car.getName(), car.getMoveCount());
-        return result;
-    }
-
-    private Car carName(final String name) {
-        return cars.getCars().stream()
-                .filter(c -> c.getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException(name));
-    }
 }
