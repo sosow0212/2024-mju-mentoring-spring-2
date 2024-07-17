@@ -9,4 +9,5 @@ public class WebNumberGenerator implements NumberGenerator {
     public int generateRandom() {
         return (int) (Math.random() * 10);
     }
+
 }

@@ -3,11 +3,14 @@ package com.racing.web.service;
 import com.racing.common.domain.Car;
 import com.racing.common.domain.Cars;
 import com.racing.common.domain.NumberGenerator;
+
 import com.racing.web.service.dto.CarResponse;
 import com.racing.web.service.dto.CarState;
 import com.racing.web.service.dto.StartRaceRequest;
+
 import com.racing.web.service.exception.NotFoundCar;
 import com.racing.web.service.exception.CarNullException;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,12 +28,12 @@ public class RacingService {
     }
 
     public void registerCars(StartRaceRequest request) {
-        this.cars = Cars.from(request.getCarNames());
+        this.cars = Cars.from(request.carNames());
     }
 
     public CarResponse startRace(StartRaceRequest request) {
         validateCarState();
-        cars.moveCars(request.getTryCount(), numberGenerator);
+        cars.moveCars(request.tryCount(), numberGenerator);
         return createCarResponse();
     }
 
