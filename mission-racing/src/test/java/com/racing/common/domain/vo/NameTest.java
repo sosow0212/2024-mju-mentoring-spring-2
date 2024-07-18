@@ -16,7 +16,7 @@ class NameTest {
         var expected = "차 이름 너무 긺";
 
         // when
-        CustomException actual = assertThrows(CustomException.class,()->Name.from(name));
+        CustomException actual = assertThrows(CustomException.class, () -> Name.from(name));
 
         // then
         assertEquals(expected, actual.getMessage());

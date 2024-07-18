@@ -1,6 +1,5 @@
-package domain;
+package com.racing.common.domain;
 
-import com.racing.common.domain.CarNameParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

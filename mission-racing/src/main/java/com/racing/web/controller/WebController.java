@@ -16,6 +16,7 @@ import java.util.Map;
 public class WebController {
 
     private final RacingService racingService;
+
     private Cars cars;
     private int tryCount;
 

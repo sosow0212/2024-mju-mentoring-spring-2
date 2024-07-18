@@ -1,4 +1,4 @@
-package FakeRandomNumber;
+package com.racing.common.domain.FakeRandomNumber;
 
 import com.racing.common.domain.CreateRandomNumber;
 

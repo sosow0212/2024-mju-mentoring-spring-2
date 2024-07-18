@@ -14,7 +14,7 @@ import java.util.Map;
 public class RacingService {
 
     public Cars createCars(List<Name> carNames) {
-        for(Name name : carNames){
+        for (Name name : carNames) {
             CAR_NAME_LENGTH_CHECK(name.getName());
         }
         return new Cars(carNames);
@@ -33,15 +33,15 @@ public class RacingService {
         return raceResult;
     }
 
-    public Map<String, Integer> getResultByName(List<Map<String,Integer>> carStates, String name) {
+    public Map<String, Integer> getResultByName(List<Map<String, Integer>> carStates, String name) {
         return carStates.stream()
                 .filter(carState -> carState.containsKey(name))
                 .findFirst()
                 .orElse(null);
     }
 
-    private void CAR_NAME_LENGTH_CHECK(String carName){
-        if(carName.length() > 5){
+    private void CAR_NAME_LENGTH_CHECK(String carName) {
+        if (carName.length() > 5) {
             throw new CustomException(CustomErrorCode.EXCEPTION_RANGE);
         }
     }
