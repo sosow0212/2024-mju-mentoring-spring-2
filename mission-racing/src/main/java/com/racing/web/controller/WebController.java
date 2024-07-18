@@ -47,7 +47,7 @@ public class WebController {
     }
 
     @GetMapping("/cars/name")
-    private ResponseEntity<Map<String, Integer>> getResultByName(@RequestParam(name = "name") String name) {
+    private ResponseEntity<Map<String, Integer>> getResultByName(@RequestParam("name") String name) {
         List<Map<String, Integer>> carStates = new ArrayList<>();
         for(Car car : cars.getCars()){
             carStates.add(car.getStatus());
