@@ -4,7 +4,7 @@ import com.racing.common.domain.Car;
 import com.racing.common.domain.Cars;
 import com.racing.common.domain.NumberGenerator;
 
-import com.racing.web.service.dto.CarResponse;
+import com.racing.web.controller.dto.CarResponse;
 import com.racing.web.service.dto.CarState;
 import com.racing.web.service.dto.StartRaceRequest;
 
@@ -13,9 +13,6 @@ import com.racing.web.service.exception.CarNullException;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class RacingService {
@@ -31,33 +28,27 @@ public class RacingService {
         this.cars = Cars.from(request.carNames());
     }
 
-    public CarResponse startRace(StartRaceRequest request) {
+    public Cars startRace(StartRaceRequest request) {
         validateCarState();
         cars.moveCars(request.tryCount(), numberGenerator);
-        return createCarResponse();
+        return cars;
     }
 
-    public CarResponse getRaceResult() {
+    public Cars getRaceResult() {
         validateCarState();
-        return createCarResponse();
+        return cars;
     }
 
-    public CarState getRaceResultByName(String name) {
+    public Car getCarStateByName(String name) {
         validateCarState();
-        Car car = cars.getCars().stream()
+        return getCar(name);
+    }
+
+    private Car getCar(final String name) {
+        return cars.getCars().stream()
                 .filter(c -> c.getName().equals(name))
                 .findFirst()
                 .orElseThrow(NotFoundCar::new);
-
-        return new CarState(car.getName(), car.getMoveCount());
-    }
-
-    private CarResponse createCarResponse() {
-        List<String> winners = cars.findsWinner();
-        List<Map<String, Integer>> carStates = cars.getCars().stream()
-                .map(car -> Map.of(car.getName(), car.getMoveCount()))
-                .collect(Collectors.toList());
-        return new CarResponse(carStates, winners);
     }
 
     private void validateCarState() {
@@ -65,5 +56,4 @@ public class RacingService {
             throw new CarNullException();
         }
     }
-
 }
