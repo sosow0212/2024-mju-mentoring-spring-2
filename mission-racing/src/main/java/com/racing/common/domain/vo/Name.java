@@ -1,9 +1,12 @@
 package com.racing.common.domain.vo;
 
+
+import com.racing.common.domain.exception.CustomErrorCode;
+import com.racing.common.domain.exception.CustomException;
+
 public class Name {
 
     private static final int CAR_NAME_BOUNDARY = 5;
-    private static final String EXCEPTION_CAR_NAME_RANGE = "차 이름 너무 긺";
 
     private final String name;
 
@@ -22,7 +25,7 @@ public class Name {
 
     private static void validateNameRange(String name) {
         if (name.length() > CAR_NAME_BOUNDARY) {
-            throw new RuntimeException(EXCEPTION_CAR_NAME_RANGE);
+            throw new CustomException(CustomErrorCode.EXCEPTION_RANGE);
         }
     }
 }

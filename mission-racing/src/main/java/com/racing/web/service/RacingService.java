@@ -1,6 +1,8 @@
 package com.racing.web.service;
 
 import com.racing.common.domain.*;
+import com.racing.common.domain.exception.CustomErrorCode;
+import com.racing.common.domain.exception.CustomException;
 import com.racing.common.domain.vo.Name;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +14,15 @@ import java.util.Map;
 public class RacingService {
 
     public Cars createCars(List<Name> carNames) {
+        for(Name name : carNames){
+            CAR_NAME_LENGTH_CHECK(name.getName());
+        }
         return new Cars(carNames);
     }
 
     public void startRace(Cars cars, CreateRandomNumber createRandomNumber, int tryCount) {
         for (int i = 0; i < tryCount; i++) {
             moveCars(cars, createRandomNumber);
-        }
-    }
-
-    private void moveCars(Cars cars, CreateRandomNumber createRandomNumber) {
-        for (Car car : cars.getCars()) {
-            car.moveCar(createRandomNumber);
         }
     }
 
@@ -39,5 +38,17 @@ public class RacingService {
                 .filter(carState -> carState.containsKey(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private void CAR_NAME_LENGTH_CHECK(String carName){
+        if(carName.length() > 5){
+            throw new CustomException(CustomErrorCode.EXCEPTION_RANGE);
+        }
+    }
+
+    private void moveCars(Cars cars, CreateRandomNumber createRandomNumber) {
+        for (Car car : cars.getCars()) {
+            car.moveCar(createRandomNumber);
+        }
     }
 }

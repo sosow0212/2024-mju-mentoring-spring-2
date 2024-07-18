@@ -77,20 +77,16 @@
 2. bind() 시스템 콜: 생성한 소켓에 실제 아이피 주소와 포트 번호 매기는 것(클라이언트는 포트 번호 자동 생성) / bind()시스템 콜은 서버에서만 사용
 
 - 형식: bind(sockfd, sockaddr, socklen_t)
-
-sockfd: 바인딩 할 소켓의 파일 디스크립터
-
-sockaddr: 소켓에 바인딩 할 아이피 주소, 포트번호를 담은 구조체
-
-socklen_t: 위 구조체의 메모리 크기
+  - sockfd: 바인딩 할 소켓의 파일 디스크립터
+  - sockaddr: 소켓에 바인딩 할 아이피 주소, 포트번호를 담은 구조체
+  - socklen_t: 위 구조체의 메모리 크기
 
 ---
 
 3. listen() 시스템 콜: 연결요청을 대기하는 함수 / Only for TCP
 
-파라미터로 받은 backlog 크기만큼 backlog queue를 만드는 시스템 콜!(클라이언트 대기실)
-
-형식: listen(sockfd, backlog)
+- 파라미터로 받은 backlog 크기만큼 backlog queue를 만드는 시스템 콜!(클라이언트 대기실)
+  - 형식: listen(sockfd, backlog)
 
 **서버의 listen 이후  Client의 connect() 시스템 콜 요청: SYN 던짐
 
@@ -124,4 +120,39 @@ socklen_t: 위 구조체의 메모리 크기
 
 </aside>)
 
+---
+## CustomException
+
+### 개요
+- 개발을 하다 보면 수많은 Exception 을 만남. 이때, Exception 발생하는 부분을 쉽게 알아채고 코드를 수정하기 위해 CustomException 사용.
+
+### 방법
+- 총 4가지의 클래스 존재
+  1. CustomErrorCode : Exception이 발생하였을때 알려준 Status 상태와 메시지를 담은 enum 클래스
+  2. CustomErrorResponse : 일종의 dto
+  3. CustomException : RuntimeException을 상속받은 클래스
+  4. CustomExceptionHandler : 일종의 Exception Controller
+  
+---
+
+## Checked exception vs Unchecked exception
+
+### 자바의 예외처리는 크게 3가지로 나눌 수 있다.
+
+- 에러
+  - 시스템에 비정상적인 상황이 발생했을 경우에 발생.
+  - 메모리 부족(OutofMemoryError)이나 스택오버플로우(StackOverflowError)와 같이 복구할 수 없는 것.
+
+- 체크 예외
+  - RuntimeException의 하위 클래스가 아니면서 Exception 클래스의 하위 클래스.
+  - ex) 존재하지 않는 파일의 이름을 입력(FileNotFoundException), 실수로 클래스의 이름을 잘못 적음(ClassNotFoundException)
+  - 반드시 예외 처리 함.
+  - Rollback이 되지 않고, 트랜젝션이 commit까지 완료.
+  
+- 언체크 예외
+  - RuntimeException의 하위 클래스, 실행 중에 발생할 수 있는 에러.
+  - ex) 배열의 범위를 벗어난(ArrayIndexOutOfBoundsException), 값이 null이 참조변수를 참조(NullPointerException)
+  - 명시적인 예외처리 강제하지 않음.
+  - Rollback 함.
+  
 
