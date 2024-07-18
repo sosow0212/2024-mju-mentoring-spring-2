@@ -1,4 +1,4 @@
-package com.racing.web.service.dto;
+package com.racing.web.controller.dto;
 
 import com.racing.common.domain.Car;
 

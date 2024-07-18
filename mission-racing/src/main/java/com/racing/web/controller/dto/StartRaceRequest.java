@@ -1,4 +1,4 @@
-package com.racing.web.service.dto;
+package com.racing.web.controller.dto;
 
 public record StartRaceRequest(String carNames, int tryCount) {
 

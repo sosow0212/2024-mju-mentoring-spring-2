@@ -4,9 +4,7 @@ import com.racing.common.domain.Car;
 import com.racing.common.domain.Cars;
 import com.racing.common.domain.NumberGenerator;
 
-import com.racing.web.controller.dto.CarResponse;
-import com.racing.web.service.dto.CarState;
-import com.racing.web.service.dto.StartRaceRequest;
+import com.racing.web.controller.dto.StartRaceRequest;
 
 import com.racing.web.service.exception.NotFoundCar;
 import com.racing.web.service.exception.CarNullException;
@@ -56,4 +54,5 @@ public class RacingService {
             throw new CarNullException();
         }
     }
+
 }
