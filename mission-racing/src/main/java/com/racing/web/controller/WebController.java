@@ -1,8 +1,10 @@
 package com.racing.web.controller;
 
+import com.racing.common.domain.Car;
+import com.racing.common.domain.Cars;
 import com.racing.web.service.RacingService;
 
-import com.racing.web.service.dto.CarResponse;
+import com.racing.web.controller.dto.CarResponse;
 import com.racing.web.service.dto.CarState;
 import com.racing.web.service.dto.StartRaceRequest;
 
@@ -25,17 +27,19 @@ public class WebController {
 
     @PostMapping("/racing")
     public CarResponse startRace(@RequestBody StartRaceRequest request) {
-        return racingService.startRace(request);
+        Cars cars = racingService.startRace(request);
+        return CarResponse.from(cars);
     }
 
     @GetMapping
     public CarResponse getRaceResult() {
-        return racingService.getRaceResult();
+        Cars cars = racingService.getRaceResult();
+        return CarResponse.from(cars);
     }
 
     @GetMapping(params = "name")
-    public CarState getRaceResultByName(@RequestParam("name") String name) {
-        return racingService.getRaceResultByName(name);
+    public CarState findByName(@RequestParam("name") String name) {
+        Car car = racingService.getCarStateByName(name);
+        return CarState.from(car);
     }
-
 }
