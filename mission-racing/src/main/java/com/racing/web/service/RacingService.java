@@ -27,18 +27,17 @@ public class RacingService {
         }
     }
 
-    public Map<String, Object> getResult(List<Object> status, List<String> winner) {
+    public Map<String, Object> getResult(List<Map<String, Integer>> status, List<String> winner) {
         Map<String, Object> raceResult = new HashMap<>();
         raceResult.put("winner", String.join(",", winner));
         raceResult.put("status", status);
         return raceResult;
     }
 
-    public Object getResultByName(List<Object> status, String name) {
-        return status.stream()
-                .filter(carInformation -> carInformation instanceof Map)
-                .map(carInformation -> (Map<String, Integer>) carInformation)
-                .filter(map -> map.containsKey(name))
-                .findFirst();
+    public Map<String, Integer> getResultByName(List<Map<String,Integer>> carStates, String name) {
+        return carStates.stream()
+                .filter(carState -> carState.containsKey(name))
+                .findFirst()
+                .orElse(null);
     }
 }

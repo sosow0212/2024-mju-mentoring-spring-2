@@ -2,6 +2,8 @@ package com.racing.common.domain;
 
 import com.racing.common.domain.vo.Name;
 
+import java.util.Map;
+
 public class Car {
 
     private static final int INITIAL_NUMBER = 0;
@@ -18,6 +20,10 @@ public class Car {
         if (createRandomNumber.generateRandomNumber() >= CAR_MOVE_BOUNDARY) {
             moveCount++;
         }
+    }
+
+    public Map<String, Integer> getStatus(){
+        return Map.of(carName.getName(), moveCount);
     }
 
     public int getMoveCount() {

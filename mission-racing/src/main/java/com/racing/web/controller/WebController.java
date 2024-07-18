@@ -1,15 +1,13 @@
 package com.racing.web.controller;
 
-import com.racing.common.domain.CarNameParser;
-import com.racing.common.domain.CarRandomNumber;
-import com.racing.common.domain.Cars;
-import com.racing.common.domain.CreateRandomNumber;
+import com.racing.common.domain.*;
 import com.racing.web.service.RacingService;
 import com.racing.web.service.dto.CreateCars;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,15 +37,21 @@ public class WebController {
     }
 
     @GetMapping("/cars")
-    private ResponseEntity<Map<String, Object>> getResult() {
+    private ResponseEntity<Map<String,Object>> getResult() {
         List<String> winner = cars.getWinner();
-        List<Object> status = cars.getStatus();
-        return ResponseEntity.ok(racingService.getResult(status, winner));
+        List<Map<String, Integer>> carStates = new ArrayList<>();
+        for(Car car : cars.getCars()){
+            carStates.add(car.getStatus());
+        }
+        return ResponseEntity.ok(racingService.getResult(carStates, winner));
     }
 
     @GetMapping("/cars/name")
-    private ResponseEntity<Object> getResultByName(@RequestParam(name = "name") String name) {
-        List<Object> status = cars.getStatus();
-        return ResponseEntity.ok(racingService.getResultByName(status, name));
+    private ResponseEntity<Map<String, Integer>> getResultByName(@RequestParam(name = "name") String name) {
+        List<Map<String, Integer>> carStates = new ArrayList<>();
+        for(Car car : cars.getCars()){
+            carStates.add(car.getStatus());
+        }
+        return ResponseEntity.ok(racingService.getResultByName(carStates, name));
     }
 }

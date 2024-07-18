@@ -8,7 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,22 +40,6 @@ class CarsTest {
 
         // when
         int actual = cars.getWinner().size();
-
-        // then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("모든 차 상태 보는 메서드 테스트")
-    void getStatus() {
-        // given
-        List<Name> carNames = List.of(new Name("aa"), new Name("bb"), new Name("cc"));
-        Cars cars = new Cars(carNames);
-        List<Object> status = cars.getStatus();
-        Object expected = Map.of("aa", 0);
-
-        // when
-        Object actual = status.get(0);
 
         // then
         assertEquals(expected, actual);
