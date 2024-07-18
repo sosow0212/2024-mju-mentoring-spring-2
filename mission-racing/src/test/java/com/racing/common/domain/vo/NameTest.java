@@ -1,5 +1,6 @@
 package com.racing.common.domain.vo;
 
+import com.racing.common.domain.exception.CustomException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ class NameTest {
         var expected = "차 이름 너무 긺";
 
         // when
-        RuntimeException actual = assertThrows(RuntimeException.class, () -> Name.from(name));
+        CustomException actual = assertThrows(CustomException.class,()->Name.from(name));
 
         // then
         assertEquals(expected, actual.getMessage());
