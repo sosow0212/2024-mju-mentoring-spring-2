@@ -5,7 +5,6 @@ import com.racing.common.domain.vo.Name;
 import com.racing.console.view.InputVIew;
 import com.racing.console.view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarController {
@@ -28,7 +27,7 @@ public class CarController {
         int moveCarChance = getChance();
         outputView.runGuide();
         moveCars(carBundle, moveCarChance);
-        makeCarWinner(cars);
+        outputView.showWinner(cars.getWinner());
     }
 
     private List<Name> getCarNames() {
@@ -54,16 +53,5 @@ public class CarController {
         for (int i = INITIAL_NUMBER; i < moveCarChance; i++) {
             moveCar(carBundle);
         }
-    }
-
-    private void makeCarWinner(Cars cars) {
-        List<String> carNames = new ArrayList<>();
-        List<Integer> moveCounts = new ArrayList<>();
-        for (Car car : cars.getCars()) {
-            carNames.add(car.getCarName());
-            moveCounts.add(car.getMoveCount());
-        }
-        CarWinner carWinner = new CarWinner(carNames, moveCounts);
-        outputView.showWinner(carWinner.getCarWinner());
     }
 }

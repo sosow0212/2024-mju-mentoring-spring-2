@@ -1,4 +1,4 @@
 package com.racing.web.service.dto;
 
-public record CreateCars(String carNames, int moveCount) {
+public record CreateCars(String name, int tryCount) {
 }
