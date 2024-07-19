@@ -14,3 +14,4 @@ public class WinningNumberResponse {
                 .collect(Collectors.toList());
     }
 }
+
