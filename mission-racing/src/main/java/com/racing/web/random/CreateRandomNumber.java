@@ -1,4 +1,4 @@
-package com.racing.common.domain;
+package com.racing.web.random;
 
 public interface CreateRandomNumber {
 

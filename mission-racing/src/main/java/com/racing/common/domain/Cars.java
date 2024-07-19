@@ -20,22 +20,28 @@ public class Cars {
         return cars;
     }
 
-    public List<String> getWinner() {
-        int maxCount = cars.stream()
+    public static List<String> getWinner(List<Car> carBundle) {
+        return carBundle.stream()
+                .filter(car -> isMaxCount(carBundle, car))
+                .map(Car::getCarName)
+                .collect(Collectors.toList());
+    }
+
+    private static boolean isMaxCount(List<Car> carBundle, Car car) {
+        return car.getMoveCount() == getMaxCount(carBundle);
+    }
+
+    private static int getMaxCount(List<Car> carBundle) {
+        return carBundle.stream()
                 .mapToInt(Car::getMoveCount)
                 .max()
                 .orElse(INITIAL_NUMBER);
-
-        return cars.stream()
-                .filter(car -> car.getMoveCount() == maxCount)
-                .map(Car::getCarName)
-                .collect(Collectors.toList());
     }
 
     private List<Car> makeCars(List<Name> carNames) {
         List<Car> cars = new ArrayList<>();
         for (Name carName : carNames) {
-            Car car = new Car(carName.getName());
+            Car car = new Car(INITIAL_NUMBER, carName.getName());
             cars.add(car);
         }
         return cars;

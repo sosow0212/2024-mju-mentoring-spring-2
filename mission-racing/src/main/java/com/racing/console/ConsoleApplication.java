@@ -3,8 +3,8 @@ package com.racing.console;
 import com.racing.console.controller.CarController;
 import com.racing.console.view.InputVIew;
 import com.racing.console.view.OutputView;
-import com.racing.common.domain.CarRandomNumber;
-import com.racing.common.domain.CreateRandomNumber;
+import com.racing.web.random.CarRandomNumber;
+import com.racing.web.random.CreateRandomNumber;
 
 public class ConsoleApplication {
 

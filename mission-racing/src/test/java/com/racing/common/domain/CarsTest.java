@@ -2,6 +2,7 @@ package com.racing.common.domain;
 
 import com.racing.common.domain.FakeRandomNumber.FakeRandomNumber;
 import com.racing.common.domain.vo.Name;
+import com.racing.web.random.CreateRandomNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ class CarsTest {
         int expected = 1;
 
         // when
-        int actual = cars.getWinner().size();
+        int actual = Cars.getWinner(cars.getCars()).size();
 
         // then
         assertEquals(expected, actual);

@@ -4,6 +4,7 @@ import com.racing.common.domain.*;
 import com.racing.common.domain.vo.Name;
 import com.racing.console.view.InputVIew;
 import com.racing.console.view.OutputView;
+import com.racing.web.random.CreateRandomNumber;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CarController {
         int moveCarChance = getChance();
         outputView.runGuide();
         moveCars(carBundle, moveCarChance);
-        outputView.showWinner(cars.getWinner());
+        outputView.showWinner(Cars.getWinner(cars.getCars()));
     }
 
     private List<Name> getCarNames() {

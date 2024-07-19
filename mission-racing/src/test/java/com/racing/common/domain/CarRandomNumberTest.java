@@ -1,6 +1,7 @@
 package com.racing.common.domain;
 
 import com.racing.common.domain.FakeRandomNumber.FakeRandomNumber;
+import com.racing.web.random.CreateRandomNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

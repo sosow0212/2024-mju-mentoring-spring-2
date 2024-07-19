@@ -2,6 +2,7 @@ package com.racing.common.domain;
 
 import com.racing.common.domain.FakeRandomNumber.FakeRandomNumber;
 import com.racing.common.domain.vo.Name;
+import com.racing.web.random.CreateRandomNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class CarTest {
     void moveCar() {
         // given
         String carName = "aaa";
-        Car car = new Car(carName);
+        Car car = new Car(0, carName);
         CreateRandomNumber createRandomNumber = new FakeRandomNumber();
         car.moveCar(createRandomNumber);
         int expected = 1;
@@ -33,7 +34,7 @@ class CarTest {
     void getCarName() {
         // given
         Name carName = new Name("aaa");
-        Car car = new Car(carName.getName());
+        Car car = new Car(0, carName.getName());
         String expected = "aaa";
 
         // when
@@ -48,7 +49,7 @@ class CarTest {
     void getStatus(){
         // given
         Name carName = new Name("aaa");
-        Car car = new Car(carName.getName());
+        Car car = new Car(0, carName.getName());
         Map<String, Integer> expected = Map.of("aaa",0);
 
         // when

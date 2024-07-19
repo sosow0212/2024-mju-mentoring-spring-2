@@ -1,7 +1,10 @@
-package com.racing.common.domain;
+package com.racing.web.random;
+
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
+@Component
 public class CarRandomNumber implements CreateRandomNumber {
 
     private static final Random randomNumberGenerator = new Random();

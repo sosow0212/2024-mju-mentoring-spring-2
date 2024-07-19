@@ -1,6 +1,6 @@
 package com.racing.common.domain.FakeRandomNumber;
 
-import com.racing.common.domain.CreateRandomNumber;
+import com.racing.web.random.CreateRandomNumber;
 
 public class FakeRandomNumber implements CreateRandomNumber {
     @Override
