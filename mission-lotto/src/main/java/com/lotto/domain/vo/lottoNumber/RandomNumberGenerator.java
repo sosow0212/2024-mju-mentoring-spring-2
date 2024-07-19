@@ -1,13 +1,13 @@
-package com.lotto.domain.vo;
+package com.lotto.domain.vo.lottoNumber;
 
 import java.util.Random;
 
 public class RandomNumberGenerator implements NumberGenerator {
 
-    private Random random;
+    private final Random random = new Random();
 
     @Override
     public int randomNumber() {
-        return random.nextInt(45);
+        return random.nextInt(45) + 1;
     }
 }

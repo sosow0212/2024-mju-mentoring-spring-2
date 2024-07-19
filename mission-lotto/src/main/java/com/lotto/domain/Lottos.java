@@ -1,10 +1,12 @@
 package com.lotto.domain;
 
-import com.lotto.domain.vo.LottoNumber;
-import com.lotto.domain.vo.RandomNumberGenerator;
+import com.lotto.domain.vo.lottoNumber.LottoNumber;
+import com.lotto.domain.vo.lottoNumber.RandomNumberGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Lottos {
 
@@ -14,25 +16,19 @@ public class Lottos {
         this.randomNumberGenerator = randomNumberGenerator;
     }
 
-    public List<Lotto> generateLottos(int ticektCount) {
+    public List<Lotto> generateLottos(int ticketCount) {
         List<Lotto> lottos = new ArrayList<>();
-        return getLottos(ticektCount, lottos);
-    }
+        createLottoAsTicket(ticketCount, lottos);
 
-    private List<Lotto> getLottos(int ticektCount, List<Lotto> lottos) {
-        for (int i = 0; i < ticektCount; i++) {
-            lottos.add(LottoNumber.from(randomNumberGenerator));
-        }
         return lottos;
     }
 
-    private int winningLotto(List<Integer> lottoNumbers, List<Integer> winNumbers) {
-        int count = 0;
-        for (int number : lottoNumbers) {
-            if (winNumbers.contains(number)) {
-                count++;
-            }
+    private void createLottoAsTicket(final int ticketCount, final List<Lotto> lottos) {
+        for (int i = 0; i < ticketCount; i++) {
+            Set<Integer> numbers = LottoNumber.generateNumbers(randomNumberGenerator);
+            lottos.add(new Lotto(numbers.stream()
+                    .sorted()
+                    .collect(Collectors.toList())));
         }
-        return count;
     }
 }

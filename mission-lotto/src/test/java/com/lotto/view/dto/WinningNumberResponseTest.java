@@ -12,10 +12,10 @@ class WinningNumberResponseTest {
     void 지난주_당첨금_테스트 () {
 
         // given
-        WinningNumberResponse winningNumberResponse = new WinningNumberResponse();
+        NumberResponse numberResponse = new NumberResponse();
 
         // when
-        List<Integer> expect =winningNumberResponse.response("1,2,3,4,5,6");
+        List<Integer> expect = numberResponse.response("1,2,3,4,5,6");
         List<Integer> result = List.of(1,2,3,4,5,6);
 
         // then
