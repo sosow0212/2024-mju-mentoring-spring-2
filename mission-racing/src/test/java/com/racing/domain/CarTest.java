@@ -1,5 +1,6 @@
 package com.racing.domain;
 
+import com.racing.common.domain.Car;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
