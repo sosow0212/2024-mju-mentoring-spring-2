@@ -7,6 +7,7 @@ public class WinningLotto {
     private static final int INITIAL_NUMBER = 0;
 
     private final List<Integer> winNumbers;
+
     private final int bonusNumber;
 
     public WinningLotto(List<Integer> winNumbers, int bonusNumber) {

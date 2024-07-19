@@ -19,7 +19,6 @@ public class Lottos {
     public List<Lotto> generateLottos(int ticketCount) {
         List<Lotto> lottos = new ArrayList<>();
         createLottoAsTicket(ticketCount, lottos);
-
         return lottos;
     }
 

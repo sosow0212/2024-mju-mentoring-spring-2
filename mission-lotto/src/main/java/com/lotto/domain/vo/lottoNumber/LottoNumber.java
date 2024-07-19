@@ -25,7 +25,7 @@ public class LottoNumber {
         }
     }
 
-    private static void validateLottoNumber(int number) {
+    public static void validateLottoNumber(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new BoundaryLottoSizeException();
         }
