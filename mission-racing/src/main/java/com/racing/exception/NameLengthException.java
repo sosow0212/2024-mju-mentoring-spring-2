@@ -1,4 +1,4 @@
-package com.racing.Exception;
+package com.racing.exception;
 
 public class NameLengthException extends RuntimeException {
 

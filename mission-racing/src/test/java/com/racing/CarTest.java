@@ -2,7 +2,6 @@ package com.racing;
 
 import com.racing.model.Car;
 import com.racing.model.CarRandomNumber;
-import com.racing.model.RandomNumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +19,7 @@ public class CarTest {
     void car_이동했을때_위치_확인_테스트() {
         Car car = new Car("car1");
 
-        car.carMovePosition(5);
+        car.movePosition(5);
         int expected = 1;
 
         int actual = car.getPosition();

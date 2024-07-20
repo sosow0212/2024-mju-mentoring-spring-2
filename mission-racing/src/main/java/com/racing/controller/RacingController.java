@@ -1,9 +1,12 @@
 package com.racing.controller;
 
+import com.racing.service.dto.CarStatus;
+import com.racing.service.dto.RaceResult;
+import com.racing.service.dto.CarRegister;
 import com.racing.service.RacingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
 @RequestMapping("/api/cars")
 @RestController
@@ -16,10 +19,8 @@ public class RacingController {
     }
 
     @PostMapping
-    public void registerCars(@RequestBody Map<String, Object> request) {
-        String names = (String) request.get("name");
-        int tryCount = (int) request.get("tryCount");
-        racingService.registerCars(names, tryCount);
+    public void registerCars(@RequestBody CarRegister register) {
+        racingService.registerCars(register);
     }
 
     @PostMapping("/racing")
@@ -28,12 +29,14 @@ public class RacingController {
     }
 
     @GetMapping
-    public Map<String, Object> getRaceResults() {
-        return racingService.getRaceResults();
+    public ResponseEntity<RaceResult> getRaceResults() {
+        RaceResult resultResponse = racingService.getRaceResults();
+        return ResponseEntity.ok(resultResponse);
     }
 
     @GetMapping(params = "name")
-    public Map<String, Integer> getCarStatus(@RequestParam("name") String name) {
-        return racingService.getCarStatus(name);
+    public ResponseEntity<CarStatus> getCarStatus(@RequestParam("name") String name) {
+        CarStatus statusResponse = racingService.getCarStatus(name);
+        return ResponseEntity.ok(statusResponse);
     }
 }

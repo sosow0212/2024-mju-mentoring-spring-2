@@ -1,6 +1,7 @@
 package com.racing.model;
 
-import com.racing.Exception.NameLengthException;
+import com.racing.exception.CarNotFoundException;
+import com.racing.exception.NameLengthException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -8,10 +9,41 @@ import java.util.stream.Collectors;
 public class Cars {
 
     private static final int NAME_MAX_LENGTH = 5;
-    private List<Car> cars;
+    private List<Car> cars = new ArrayList<>();
 
-    public Cars(List<Car> cars) {
-        this.cars = cars;
+    public Cars(String inputNames) {
+        this.cars = generateCarList(inputNames);
+    }
+
+    public List<Car> generateCarList(String inputName) {
+        String[] splitName = inputName.split(",");
+        for (String name : splitName) {
+            validateNameLength(name);
+            Car car = new Car(name);
+            cars.add(car);
+        }
+        return cars;
+    }
+
+    private void validateNameLength(String name) {
+        if (name.length() > NAME_MAX_LENGTH) {
+            throw new NameLengthException();
+        }
+    }
+
+    public void moveCars() {
+        for (Car car : cars) {
+            RandomNumber randomNumber = new CarRandomNumber();
+            car.moveCar(randomNumber);
+        }
+    }
+
+    public List<String> rankCars() {
+        return cars.stream()
+                .max(Comparator.comparingInt(Car::getPosition))
+                .stream()
+                .map(Car::getName)
+                .collect(Collectors.toList());
     }
 
     public Map<String, Integer> getCarState() {
@@ -22,41 +54,11 @@ public class Cars {
         return carState;
     }
 
-    public void generateCarList(String inputName) {
-        String[] splitName = inputName.split(",");
-        for (String name : splitName) {
-            validateNameLength(name);
-            Car car = new Car(name);
-            cars.add(car);
-        }
-    }
-
-    private void validateNameLength(String name) {
-        if (name.length() > NAME_MAX_LENGTH) {
-            throw new NameLengthException();
-        }
-    }
-
-    public void carsMove() {
-        for (Car car : cars) {
-            int randomNumber = car.generateRandomNumber();
-            car.carMovePosition(randomNumber);
-        }
-    }
-
-    public List<String> carRank() {
-        return cars.stream()
-                .max(Comparator.comparingInt(Car::getPosition))
-                .stream()
-                .map(Car::getName)
-                .collect(Collectors.toList());
-    }
-
-    public Car getCarByName(String name) {
+    public Car findCarByName(String name) {
         return cars.stream()
                 .filter(car -> car.getName().equals(name))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new CarNotFoundException());
     }
 
     public List<Car> getCarList() {

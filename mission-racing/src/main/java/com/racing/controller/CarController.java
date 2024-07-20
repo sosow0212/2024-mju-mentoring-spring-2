@@ -1,11 +1,9 @@
 package com.racing.controller;
 
-import com.racing.model.Car;
 import com.racing.model.Cars;
 import com.racing.view.InputView;
 import com.racing.view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarController {
@@ -20,17 +18,15 @@ public class CarController {
 
     public void Run() {
         String inputNames = inputView.inputName();
-        List<Car> carList = new ArrayList<>();
-        Cars cars = new Cars(carList);
-        cars.generateCarList(inputNames);
+        Cars cars = new Cars(inputNames);
         int inputCounts = inputView.inputCount();
 
         for (int count = 0; count < inputCounts; count++) {
-            cars.carsMove();
+            cars.moveCars();
             outputView.printRunResult(cars.getCarState());
         }
 
-        List<String> winners = cars.carRank();
+        List<String> winners = cars.rankCars();
         outputView.printWinners(winners);
     }
 }

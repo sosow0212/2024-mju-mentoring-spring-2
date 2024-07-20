@@ -15,13 +15,13 @@ public class Car {
         return (randomNumber >= LEAST_NUMBER);
     }
 
-    public int generateRandomNumber() {
-        CarRandomNumber carRandomNumber = new CarRandomNumber();
-        return carRandomNumber.getRandomNumber();
+    public void moveCar(RandomNumber randomNumber) {
+        int number = randomNumber.getRandomNumber();
+        movePosition(number);
     }
 
-    public void carMovePosition(int randomNumber) {
-        if (checkRandomNumber(randomNumber)) {
+    public void movePosition(int number) {
+        if (checkRandomNumber(number)) {
             position++;
         }
     }
