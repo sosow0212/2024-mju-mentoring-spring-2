@@ -1,7 +1,7 @@
 package com.racing.web.controller;
 
 import com.racing.web.dto.CarResultResponse;
-import com.racing.web.random.CreateRandomNumber;
+import com.racing.web.dto.CarStatusResponse;
 import com.racing.web.service.RacingService;
 import com.racing.web.dto.CreateRequest;
 
@@ -10,19 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.Optional;
-
 @Controller
 @RequestMapping("/api")
 public class WebController {
 
     private final RacingService racingService;
-    private final CreateRandomNumber createRandomNumber;
 
-    public WebController(RacingService racingService, CreateRandomNumber createRandomNumber) {
+    public WebController(RacingService racingService) {
         this.racingService = racingService;
-        this.createRandomNumber = createRandomNumber;
     }
 
     @PostMapping("/create")
@@ -33,7 +28,7 @@ public class WebController {
 
     @PostMapping("/cars/racing")
     private ResponseEntity<Void> starRace() {
-        racingService.startRace(createRandomNumber);
+        racingService.startRace();
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -43,7 +38,7 @@ public class WebController {
     }
 
     @GetMapping(value = "/cars", params = "name")
-    private ResponseEntity<Optional<Map<String, Integer>>> getResultByName(@RequestParam("name") String name) {
-        return ResponseEntity.ok(racingService.findResultByName(name));
+    private ResponseEntity<CarStatusResponse> getResultByName(@RequestParam("name") String name) {
+        return ResponseEntity.ok(racingService.getResultByName(name));
     }
 }

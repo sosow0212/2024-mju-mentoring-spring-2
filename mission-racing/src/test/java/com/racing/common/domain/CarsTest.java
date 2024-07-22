@@ -38,7 +38,7 @@ class CarsTest {
         int expected = 1;
 
         // when
-        int actual = Cars.getWinner(cars.getCars()).size();
+        int actual = cars.getWinner().size();
 
         // then
         assertEquals(expected, actual);

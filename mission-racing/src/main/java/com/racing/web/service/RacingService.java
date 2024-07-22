@@ -1,7 +1,10 @@
 package com.racing.web.service;
 
 import com.racing.common.domain.*;
+import com.racing.common.domain.exception.CustomErrorCode;
+import com.racing.common.domain.exception.CustomException;
 import com.racing.web.dto.CarResultResponse;
+import com.racing.web.dto.CarStatusResponse;
 import com.racing.web.random.CreateRandomNumber;
 import com.racing.web.dto.CreateRequest;
 import com.racing.web.repository.CarRepository;
@@ -9,59 +12,55 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class RacingService {
 
     private final CarRepository carRepository;
+    private final CreateRandomNumber createRandomNumber;
 
-    public RacingService(CarRepository carRepository) {
+    public RacingService(CarRepository carRepository, CreateRandomNumber createRandomNumber) {
         this.carRepository = carRepository;
+        this.createRandomNumber = createRandomNumber;
     }
 
     public void createCars(CreateRequest createRequest) {
-        Cars cars = new Cars(new CarNameParser(createRequest.name()).getCarNames());
-        for (Car car : cars.getCars()) {
-            carRepository.save(car.getCarName(), car);
-        }
+        CarNameParser carNameParser = new CarNameParser(createRequest.name());
+        Cars cars = new Cars(carNameParser.getCarNames());
+        carRepository.saveAllCarNames(carNameParser.getCarNames());
+        carRepository.saveAllCars(cars.getCars());
         carRepository.saveTryCount(createRequest.tryCount());
     }
 
-    public void startRace(CreateRandomNumber createRandomNumber) {
-        for (int i = 0; i < carRepository.getTryCount(); i++) {
-            moveCars(createRandomNumber);
+    public void startRace() {
+        for (int i = 0; i < carRepository.findTryCount(); i++) {
+            moveCars();
         }
     }
 
     public CarResultResponse getResult() {
-        List<Car> cars = carRepository.getAllCars();
-        List<String> winner = Cars.getWinner(cars);
-        return new CarResultResponse(String.join(",", winner), getCarStatus(cars));
+        List<Car> carBundle = carRepository.findAllCars();
+        Cars cars = new Cars(carBundle, true);
+        List<String> winner = cars.getWinner();
+        return CarResultResponse.from(String.join(",", winner), getCarStatuses(carBundle));
     }
 
-    public Optional<Map<String, Integer>> findResultByName(String name) {
-        List<Car> cars = carRepository.getAllCars();
-        return getCarStatus(cars).stream()
-                .filter(carState -> isName(carState, name))
-                .findFirst();
+    public CarStatusResponse getResultByName(String name) {
+        Car car = carRepository.findCarByName(name)
+                .orElseThrow(() -> new CustomException(CustomErrorCode.EXCEPTION_CAR));
+        return CarStatusResponse.from(car.getStatus());
     }
 
-    private boolean isName(Map<String, Integer> carState, String name) {
-        return carState.containsKey(name);
-    }
-
-    private List<Map<String, Integer>> getCarStatus(List<Car> cars) {
-        List<Map<String, Integer>> carStatuses = new ArrayList<>();
+    private List<CarStatusResponse> getCarStatuses(List<Car> cars) {
+        List<CarStatusResponse> carStatuses = new ArrayList<>();
         for (Car car : cars) {
-            carStatuses.add(Map.of(car.getCarName(), car.getMoveCount()));
+            carStatuses.add(CarStatusResponse.from(car.getStatus()));
         }
         return carStatuses;
     }
 
-    private void moveCars(CreateRandomNumber createRandomNumber) {
-        for (Car car : carRepository.getAllCars()) {
+    private void moveCars() {
+        for (Car car : carRepository.findAllCars()) {
             car.moveCar(createRandomNumber);
         }
     }

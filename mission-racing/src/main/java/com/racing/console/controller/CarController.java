@@ -28,7 +28,7 @@ public class CarController {
         int moveCarChance = getChance();
         outputView.runGuide();
         moveCars(carBundle, moveCarChance);
-        outputView.showWinner(Cars.getWinner(cars.getCars()));
+        outputView.showWinner(cars.getWinner());
     }
 
     private List<Name> getCarNames() {

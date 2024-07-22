@@ -16,23 +16,27 @@ public class Cars {
         this.cars = makeCars(carNames);
     }
 
+    public Cars(List<Car> carBundle, boolean dummy){
+        this.cars = carBundle;
+    }
+
     public List<Car> getCars() {
         return cars;
     }
 
-    public static List<String> getWinner(List<Car> carBundle) {
-        return carBundle.stream()
-                .filter(car -> isMaxCount(carBundle, car))
+    public List<String> getWinner() {
+        return cars.stream()
+                .filter(this::isMaxCount)
                 .map(Car::getCarName)
                 .collect(Collectors.toList());
     }
 
-    private static boolean isMaxCount(List<Car> carBundle, Car car) {
-        return car.getMoveCount() == getMaxCount(carBundle);
+    private boolean isMaxCount(Car car) {
+        return car.getMoveCount() == getMaxCount();
     }
 
-    private static int getMaxCount(List<Car> carBundle) {
-        return carBundle.stream()
+    private int getMaxCount() {
+        return cars.stream()
                 .mapToInt(Car::getMoveCount)
                 .max()
                 .orElse(INITIAL_NUMBER);
