@@ -28,13 +28,13 @@ public class WebController {
     @PostMapping("/create")
     private ResponseEntity<Void> createCars(@RequestBody CreateRequest createRequest) {
         racingService.createCars(createRequest);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/cars/racing")
     private ResponseEntity<Void> starRace() {
         racingService.startRace(createRandomNumber);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/cars")
