@@ -1,0 +1,17 @@
+package com.racing.web.random;
+
+import org.springframework.stereotype.Component;
+
+import java.util.Random;
+
+@Component
+public class CarRandomNumber implements CreateRandomNumber {
+
+    private static final Random randomNumberGenerator = new Random();
+    private static final int LAST_NUMBER = 10;
+
+    @Override
+    public int generateRandomNumber() {
+        return randomNumberGenerator.nextInt(LAST_NUMBER);
+    }
+}
