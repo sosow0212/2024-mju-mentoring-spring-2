@@ -6,18 +6,18 @@ import java.util.Map;
 
 public class CarStatusResponse {
 
-    private final Map<String, Integer> carStatus;
+    private final Map<CarNameResponse, MoveCountResponse> carStatus;
 
-    public CarStatusResponse(Map<String, Integer> carStatus) {
-        this.carStatus = carStatus;
+    public CarStatusResponse(CarNameResponse carNameResponse, MoveCountResponse moveCountResponse) {
+        this.carStatus = Map.of(carNameResponse, moveCountResponse);
     }
 
-    public static CarStatusResponse from(Map<String, Integer> carState) {
-        return new CarStatusResponse(carState);
+    public static CarStatusResponse from(CarNameResponse carNameResponse, MoveCountResponse moveCountResponse) {
+        return new CarStatusResponse(carNameResponse, moveCountResponse);
     }
 
     @JsonAnyGetter
-    public Map<String, Integer> getCarStatusResponse() {
+    public Map<CarNameResponse, MoveCountResponse> getCarStatusResponse() {
         return carStatus;
     }
 }

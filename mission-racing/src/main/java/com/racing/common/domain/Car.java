@@ -3,7 +3,6 @@ package com.racing.common.domain;
 import com.racing.common.domain.vo.Name;
 import com.racing.web.random.CreateRandomNumber;
 
-import java.util.Map;
 
 public class Car {
 
@@ -21,10 +20,6 @@ public class Car {
         if (createRandomNumber.generateRandomNumber() >= CAR_MOVE_BOUNDARY) {
             moveCount++;
         }
-    }
-
-    public Map<String, Integer> getStatus() {
-        return Map.of(carName.getName(), moveCount);
     }
 
     public int getMoveCount() {
