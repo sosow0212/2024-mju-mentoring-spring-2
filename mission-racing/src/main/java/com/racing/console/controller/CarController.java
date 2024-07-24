@@ -2,7 +2,7 @@ package com.racing.console.controller;
 
 import com.racing.common.domain.*;
 import com.racing.common.domain.vo.Name;
-import com.racing.console.view.InputVIew;
+import com.racing.console.view.InputView;
 import com.racing.console.view.OutputView;
 import com.racing.web.random.CreateRandomNumber;
 
@@ -12,11 +12,11 @@ public class CarController {
 
     private static final int INITIAL_NUMBER = 0;
 
-    private final InputVIew inputVIew;
+    private final InputView inputVIew;
     private final OutputView outputView;
     private final CreateRandomNumber createRandomNumber;
 
-    public CarController(InputVIew inputVIew, OutputView outputView, CreateRandomNumber createRandomNumber) {
+    public CarController(InputView inputVIew, OutputView outputView, CreateRandomNumber createRandomNumber) {
         this.inputVIew = inputVIew;
         this.outputView = outputView;
         this.createRandomNumber = createRandomNumber;
