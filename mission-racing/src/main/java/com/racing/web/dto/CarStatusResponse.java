@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import java.util.Map;
 
 public class CarStatusResponse {
+
     private final Map<String, Integer> carStatus;
 
     public CarStatusResponse(Map<String, Integer> carStatus) {
