@@ -23,11 +23,8 @@ public class RacingService {
     }
 
     public void createCars(CreateRequest createRequest) {
-        CarNameParser carNameParser = new CarNameParser(createRequest.name());
-        Cars cars = new Cars(carNameParser.getCarNames());
-        carRepository.saveAllCarNames(carNameParser.getCarNames());
-        carRepository.saveAllCars(cars.getCars());
-        carRepository.saveTryCount(createRequest.tryCount());
+        Cars cars = new Cars(new CarNameParser(createRequest.name()).getCarNames());
+        carRepository.saveCars(cars, createRequest.tryCount());
     }
 
     public void startRace() {

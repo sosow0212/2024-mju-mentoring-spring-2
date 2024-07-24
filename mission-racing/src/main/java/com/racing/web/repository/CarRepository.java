@@ -1,7 +1,7 @@
 package com.racing.web.repository;
 
 import com.racing.common.domain.Car;
-import com.racing.common.domain.vo.Name;
+import com.racing.common.domain.Cars;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -9,32 +9,18 @@ import java.util.*;
 @Repository
 public class CarRepository {
 
-    private final Map<String, Car> database = new HashMap<>();
-    private final List<Name> carNames = new ArrayList<>();
+    private final Map<String, Car> database = new LinkedHashMap<>();
     private int tryCount;
 
-    public void saveAllCars(List<Car> cars) {
-        int i = 0;
-        for (Name name : carNames) {
-            database.put(name.getName(), cars.get(i));
-            i++;
+    public void saveCars(Cars cars, int tryCount) {
+        for (Car car : cars.getCars()) {
+            database.put(car.getCarName(), car);
         }
-    }
-
-    public void saveAllCarNames(List<Name> carName) {
-        carNames.addAll(carName);
-    }
-
-    public void saveTryCount(int tryCount) {
         this.tryCount = tryCount;
     }
 
     public List<Car> findAllCars() {
-        List<Car> cars = new ArrayList<>();
-        for (Name carName : findAllCarNames()) {
-            cars.add(database.get(carName.getName()));
-        }
-        return cars;
+        return new ArrayList<>(database.values());
     }
 
     public int findTryCount() {
@@ -43,9 +29,5 @@ public class CarRepository {
 
     public Optional<Car> findCarByName(String name) {
         return Optional.ofNullable(database.get(name));
-    }
-
-    private List<Name> findAllCarNames() {
-        return carNames;
     }
 }
