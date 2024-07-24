@@ -10,7 +10,6 @@ public class InputView {
         this.input = input;
     }
 
-
     public String inputCarNames() {
         return input.next();
     }

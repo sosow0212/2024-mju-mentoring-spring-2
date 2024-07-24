@@ -10,12 +10,12 @@ public class MoveCountResponse {
         this.moveCount = moveCount;
     }
 
-    public static MoveCountResponse from(int moveCount){
+    public static MoveCountResponse from(int moveCount) {
         return new MoveCountResponse(moveCount);
     }
 
     @JsonValue
-    public int getMoveCount(){
+    public int getMoveCount() {
         return moveCount;
     }
 }

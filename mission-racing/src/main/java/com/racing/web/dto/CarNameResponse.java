@@ -10,12 +10,12 @@ public class CarNameResponse {
         this.carName = carName;
     }
 
-    public static CarNameResponse form(String carName){
+    public static CarNameResponse form(String carName) {
         return new CarNameResponse(carName);
     }
 
     @JsonValue
-    public String getCarName(){
+    public String getCarName() {
         return carName;
     }
 }

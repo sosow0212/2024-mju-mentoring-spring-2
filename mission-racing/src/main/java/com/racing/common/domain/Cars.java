@@ -16,7 +16,7 @@ public class Cars {
         this.cars = makeCars(carNames);
     }
 
-    public Cars(List<Car> carBundle, boolean dummy){
+    public Cars(List<Car> carBundle, boolean dummy) {
         this.cars = carBundle;
     }
 
