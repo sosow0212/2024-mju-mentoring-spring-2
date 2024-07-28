@@ -3,46 +3,48 @@ package com.racing.service;
 import com.racing.exception.CarNotFoundException;
 import com.racing.model.Car;
 import com.racing.model.Cars;
-import com.racing.service.dto.CarRegister;
-import com.racing.service.dto.CarStatus;
-import com.racing.service.dto.RaceResult;
+import com.racing.model.RandomNumber;
+import com.racing.repository.CarRepository;
+import com.racing.service.dto.CarRegisterRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 @Service
 public class RacingService {
 
-    private Cars cars;
-    private int tryCount;
+    private final CarRepository carRepository;
+    private final RandomNumber randomNumber;
 
-    public void registerCars(CarRegister request) {
-        this.cars = new Cars(String.join(",", request.name()));
-        this.tryCount = request.tryCount();
+    @Autowired
+    public RacingService(CarRepository carRepository, RandomNumber randomNumber) {
+        this.carRepository = carRepository;
+        this.randomNumber = randomNumber;
+    }
+
+    public void registerCars(CarRegisterRequest request) {
+        Cars cars = Cars.from(String.join(",", request.name()), randomNumber);
+        carRepository.save(cars, request.tryCount());
     }
 
     public void race() {
-        for (int i = 0; i < tryCount; i++) {
-            cars.moveCars();
+        for (int count = 0; count < carRepository.getTryCount(); count++) {
+            moveCars();
         }
     }
 
-    public List<Car> getCars() {
-        return cars.getCarList();
-    }
-
-    public RaceResult getRaceResults() {
-        return RaceResult.resultResponse(cars);
-    }
-
-    public CarStatus getCarStatus(String name) {
-        Car car = cars.findCarByName(name);
-        if (car == null) {
-            throw new CarNotFoundException();
+    private void moveCars() {
+        for (Car car : carRepository.getAllCars()) {
+            car.moveCar(randomNumber);
         }
-        return new CarStatus(car.getName(), car.getPosition());
+    }
+
+    public Cars getCarResult() {
+        return new Cars(carRepository.getAllCars(), randomNumber);
+    }
+
+    public Car findCarByName(String name) {
+        return carRepository.findByName(name)
+                .orElseThrow(CarNotFoundException::new);
     }
 }

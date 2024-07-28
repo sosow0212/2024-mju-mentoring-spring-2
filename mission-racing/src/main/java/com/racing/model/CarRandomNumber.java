@@ -1,7 +1,10 @@
 package com.racing.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
+@Component
 public class CarRandomNumber implements RandomNumber {
 
     private static final Random random = new Random();
