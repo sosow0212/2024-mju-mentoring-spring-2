@@ -1,28 +1,27 @@
 package com.racing.model;
 
-import java.util.Random;
 
 public class Car {
 
+    private static final int LEAST_NUMBER = 4;
     private final String name;
-    private int position;
-    private static final int BOUND_NUMBER = 9;
+    private int position = 0;
 
     public Car(String name) {
         this.name = name;
     }
 
-    public int getRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(BOUND_NUMBER);
+    public boolean checkRandomNumber(int randomNumber) {
+        return (randomNumber >= LEAST_NUMBER);
     }
 
-    public boolean checkRandomNumber() {
-        return (getRandomNumber() >= 4);
+    public void moveCar(RandomNumber randomNumber) {
+        int number = randomNumber.getRandomNumber();
+        movePosition(number);
     }
 
-    public void carMovePosition() {
-        if (checkRandomNumber()) {
+    public void movePosition(int number) {
+        if (checkRandomNumber(number)) {
             position++;
         }
     }
