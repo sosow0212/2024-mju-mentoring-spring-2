@@ -8,8 +8,6 @@ import com.lotto.web.entity.User;
 import com.lotto.web.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.security.PublicKey;
-
 @Service
 public class UserService {
 
@@ -35,10 +33,10 @@ public class UserService {
                 .orElseThrow(() -> new CustomException(CustomErrorCode.EXCEPTION_USER));
     }
 
-    public void buyLotto(LottoRequest lottoRequest){
+    public void buyLotto(LottoRequest lottoRequest) {
         User user = getUser(lottoRequest.getUserId());
         int money = user.getMoney() - lottoRequest.getCount() * 1000;
-        User updatedUser = new User(user.getId(), user.getName(), money, lottoRequest.getCount());
+        User updatedUser = new User(user.getId(), user.getName(), money, user.getLottoCount() + lottoRequest.getCount());
         userRepository.save(updatedUser);
     }
 }

@@ -3,7 +3,6 @@ package com.lotto.web.domain;
 import com.lotto.web.domain.vo.Number;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lotto {

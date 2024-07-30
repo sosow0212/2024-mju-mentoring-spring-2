@@ -37,4 +37,8 @@ public class User {
     public int getMoney(){
         return money;
     }
+
+    public int getLottoCount(){
+        return lottoCount;
+    }
 }

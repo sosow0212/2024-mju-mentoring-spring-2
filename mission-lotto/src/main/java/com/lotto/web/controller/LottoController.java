@@ -1,10 +1,13 @@
 package com.lotto.web.controller;
 
 import com.lotto.web.dto.LottoRequest;
+import com.lotto.web.dto.LottoResponse;
 import com.lotto.web.service.LottoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -17,8 +20,19 @@ public class LottoController {
     }
 
     @PostMapping("/buy")
-    public ResponseEntity<Void> buyLottos(@RequestBody LottoRequest lottoRequest){
+    public ResponseEntity<Void> buyLottos(@RequestBody LottoRequest lottoRequest) {
         lottoService.buyLotto(lottoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Void> addLottos(@RequestBody LottoRequest lottoRequest) {
+        lottoService.buyMoreLotto(lottoRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/user/{id}/lottos")
+    public ResponseEntity<List<LottoResponse>> showLottos(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(lottoService.getLotto(id));
     }
 }
