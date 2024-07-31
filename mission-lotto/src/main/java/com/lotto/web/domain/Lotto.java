@@ -43,8 +43,8 @@ public class Lotto {
 
     private List<Integer> makeLottoNumbers(List<Number> numbers) {
         List<Integer> lottoNumber = new ArrayList<>();
-        for (Number singleNumber : numbers) {
-            lottoNumber.add(singleNumber.getNumber());
+        for (Number number : numbers) {
+            lottoNumber.add(number.getNumber());
         }
         return lottoNumber;
     }

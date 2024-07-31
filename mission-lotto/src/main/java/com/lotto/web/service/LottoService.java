@@ -34,17 +34,9 @@ public class LottoService {
     public void buyLotto(LottoRequest lottoRequest) {
         int money = userService.getUserMoney(lottoRequest.getUserId());
         validateLottoMoney(money, lottoRequest.getCount());
-        createLottoAnswer();
         saveLottos(lottoRequest);
         userService.buyLotto(lottoRequest);
 
-    }
-
-    public void buyMoreLotto(LottoRequest lottoRequest) {
-        int money = userService.getUserMoney(lottoRequest.getUserId());
-        validateLottoMoney(money, lottoRequest.getCount());
-        saveLottos(lottoRequest);
-        userService.buyLotto(lottoRequest);
     }
 
     public void createLottoAnswer() {
@@ -53,10 +45,17 @@ public class LottoService {
         lottoAnswerRepository.save(lottoAnswer);
     }
 
-    public List<LottoResponse> getLotto(Long id) {
+    public LottoResponse getLotto(Long id, int order) {
+        List<LottoResponse> lottoResponses = getLottos(id);
+        validateLottoOrder(lottoResponses, order);
+        return lottoResponses.get(order - 1);
+    }
+
+    public List<LottoResponse> getLottos(Long id) {
         List<LottoEntity> lottoEntities = lottoRepository.findAllByUserId(id);
+        validateLottoExist(lottoEntities);
         List<LottoResponse> lottoResponses = new ArrayList<>();
-        for(LottoEntity lottoEntity : lottoEntities){
+        for (LottoEntity lottoEntity : lottoEntities) {
             lottoResponses.add(new LottoResponse(lottoEntity.getLottoNumber()));
         }
         return lottoResponses;
@@ -74,6 +73,18 @@ public class LottoService {
     private void validateLottoMoney(int money, int count) {
         if (money < count * 1000) {
             throw new CustomException(CustomErrorCode.EXCEPTION_MONEY);
+        }
+    }
+
+    private void validateLottoOrder(List<LottoResponse> lottoResponses, int order) {
+        if (order < 1 || order > lottoResponses.size()) {
+            throw new CustomException(CustomErrorCode.EXCEPTION_LOTTO);
+        }
+    }
+
+    private void validateLottoExist(List<LottoEntity> lottoEntities) {
+        if (lottoEntities.isEmpty()) {
+            throw new CustomException(CustomErrorCode.EXCEPTION_LOTTO);
         }
     }
 }

@@ -24,7 +24,7 @@ public class Number {
     }
 
     private static void validateNumberRange(int number) {
-        if (number >= MAXIMUM_LOTTO_NUMBER && number < MINIMUM_LOTTO_NUMBER) {
+        if (number > MAXIMUM_LOTTO_NUMBER || number < MINIMUM_LOTTO_NUMBER) {
             throw new CustomException(CustomErrorCode.EXCEPTION_RANGE);
         }
     }
