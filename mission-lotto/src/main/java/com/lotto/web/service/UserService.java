@@ -1,5 +1,6 @@
 package com.lotto.web.service;
 
+import com.lotto.web.domain.LottoPrice;
 import com.lotto.web.domain.exception.CustomErrorCode;
 import com.lotto.web.domain.exception.CustomException;
 import com.lotto.web.dto.CreateRequest;
@@ -37,7 +38,7 @@ public class UserService {
                 .orElseThrow(() -> new CustomException(CustomErrorCode.EXCEPTION_USER));
     }
 
-    public void buyLotto(LottoRequest lottoRequest) {
+    public void updateMoney(LottoRequest lottoRequest) {
         User user = getUser(lottoRequest.getUserId());
         int money = user.getMoney() - lottoRequest.getCount() * 1000;
         User updatedUser = new User(user.getId(), user.getName(), money, user.getLottoCount() + lottoRequest.getCount());
@@ -49,9 +50,15 @@ public class UserService {
         validateUserExist(users);
         List<UserResponse> userResponses = new ArrayList<>();
         for (User user : users) {
-            userResponses.add(new UserResponse(user.getName(), user.getLottoCount()));
+            userResponses.add(new UserResponse(user.getName(), user.getLottoCount(), user.getWinning()));
         }
         return userResponses;
+    }
+
+    public void saveWinning(User user, int count){
+        int winning = LottoPrice.getLottoPrice(count);
+        User updatedUser = new User(user.getId(),user.getName(),user.getMoney(), user.getLottoCount(), winning);
+        userRepository.save(updatedUser);
     }
 
     private void validateUserExist(List<User> users) {

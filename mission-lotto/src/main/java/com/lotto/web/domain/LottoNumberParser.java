@@ -21,7 +21,7 @@ public class LottoNumberParser {
     private List<Integer> makeLottoNumber(String lottoNumber) {
         List<Integer> parsedLottoNumber = new ArrayList<>();
         for (String number : parseLottoNumber(cleanLottoNumber(lottoNumber))) {
-            int realLottoNumberElement = Integer.parseInt(number);
+            int realLottoNumberElement = Integer.parseInt(number.trim());
             parsedLottoNumber.add(realLottoNumberElement);
         }
         return parsedLottoNumber;

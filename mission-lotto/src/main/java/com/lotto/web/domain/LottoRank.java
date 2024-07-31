@@ -8,8 +8,8 @@ public class LottoRank {
 
     private final int count;
 
-    public LottoRank(int count) {
-        this.count = count;
+    public LottoRank(List<Integer> lottoNumber, List<Integer> lottoAnswer) {
+        this.count = countLottoNumber(lottoNumber, lottoAnswer);
     }
 
     public int getCount() {
@@ -24,8 +24,8 @@ public class LottoRank {
         return count;
     }
 
-    private int checkCount(List<Integer> lottoAnswer, int number, int count){
-        if(lottoAnswer.contains(number)){
+    private int checkCount(List<Integer> lottoAnswer, int number, int count) {
+        if (lottoAnswer.contains(number)) {
             count++;
         }
         return count;

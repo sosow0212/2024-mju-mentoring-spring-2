@@ -1,7 +1,9 @@
 package com.lotto.web.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "LottoUser")
 public class User {
@@ -15,6 +17,16 @@ public class User {
     private int money;
     @Column
     private int lottoCount;
+    @Column
+    private int winning;
+
+    public User(Long id, String name, int money, int lottoCount, int winning) {
+        this.id = id;
+        this.name = name;
+        this.money = money;
+        this.lottoCount = lottoCount;
+        this.winning = winning;
+    }
 
     public User(Long id, String name, int money, int lottoCount) {
         this.id = id;
@@ -23,22 +35,6 @@ public class User {
         this.lottoCount = lottoCount;
     }
 
-    public User(){
-    }
-
-    public Long getId(){
-        return id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public int getMoney(){
-        return money;
-    }
-
-    public int getLottoCount(){
-        return lottoCount;
+    public User() {
     }
 }

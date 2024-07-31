@@ -2,7 +2,9 @@ package com.lotto.web.dto;
 
 import com.lotto.web.entity.LottoEntity;
 import com.lotto.web.entity.User;
+import lombok.Getter;
 
+@Getter
 public class LottoRequest {
 
     private final int count;
@@ -13,15 +15,7 @@ public class LottoRequest {
         this.userId = userId;
     }
 
-    public LottoEntity toLottoEntity(User user, String lottoNumber) {
-        return new LottoEntity(null, user, lottoNumber);
-    }
-
-    public Long getUserId(){
-        return userId;
-    }
-
-    public int getCount() {
-        return count;
+    public LottoEntity toLottoEntity(User user, String lottoNumber, boolean win) {
+        return new LottoEntity(null, user, lottoNumber, win);
     }
 }

@@ -2,6 +2,8 @@ package com.lotto.web.service;
 
 import com.lotto.web.domain.CreateRandomNumber;
 import com.lotto.web.domain.Lotto;
+import com.lotto.web.domain.LottoNumberParser;
+import com.lotto.web.domain.LottoRank;
 import com.lotto.web.domain.exception.CustomErrorCode;
 import com.lotto.web.domain.exception.CustomException;
 import com.lotto.web.dto.LottoRequest;
@@ -36,9 +38,8 @@ public class LottoService {
         int money = userService.getUserMoney(lottoRequest.getUserId());
         validateLottoMoney(money, lottoRequest.getCount());
         LottoAnswer lottoAnswer = getLottoAnswer();
-        saveLottos(lottoRequest);
-        userService.buyLotto(lottoRequest);
-
+        saveLottos(lottoRequest, lottoAnswer.getLottoAnswer());
+        userService.updateMoney(lottoRequest);
     }
 
     public LottoResponse getLotto(Long id, int order) {
@@ -52,18 +53,31 @@ public class LottoService {
         validateLottoExist(lottoEntities);
         List<LottoResponse> lottoResponses = new ArrayList<>();
         for (LottoEntity lottoEntity : lottoEntities) {
-            lottoResponses.add(new LottoResponse(lottoEntity.getLottoNumber()));
+            lottoResponses.add(new LottoResponse(lottoEntity.getLottoNumber(), lottoEntity.getWin()));
         }
         return lottoResponses;
     }
 
-    private void saveLottos(LottoRequest lottoRequest) {
+    private void saveLottos(LottoRequest lottoRequest, String lottoAnswer) {
         User user = userService.getUser(lottoRequest.getUserId());
+        LottoNumberParser parsedLottoAnswer = new LottoNumberParser(lottoAnswer);
         for (int i = 0; i < lottoRequest.getCount(); i++) {
             Lotto lotto = new Lotto(createRandomNumber);
-            LottoEntity lottoEntity = lottoRequest.toLottoEntity(user, lotto.getLotto().toString());
+            int count = getLottoRank(lotto.getLotto(), parsedLottoAnswer.getLottoNumber());
+            LottoEntity lottoEntity = lottoRequest.toLottoEntity(user, lotto.getLotto().toString(), win(count
+            ));
             lottoRepository.save(lottoEntity);
+            userService.saveWinning(user, count);
         }
+    }
+
+    private boolean win(int count){
+        return count >= 3;
+    }
+
+    private int getLottoRank(List<Integer> lotto, List<Integer> lottoAnswer){
+        LottoRank lottoRank = new LottoRank(lotto, lottoAnswer);
+        return lottoRank.getCount();
     }
 
     private LottoAnswer getLottoAnswer(){
@@ -71,7 +85,7 @@ public class LottoService {
         return lottoAnswer.orElseGet(this::createLottoAnswer);
     }
 
-    public LottoAnswer createLottoAnswer() {
+    private LottoAnswer createLottoAnswer() {
         Lotto lotto = new Lotto(createRandomNumber);
         LottoAnswer lottoAnswer = new LottoAnswer(null, lotto.getLotto().toString());
         lottoAnswerRepository.save(lottoAnswer);
