@@ -1,9 +1,7 @@
 package com.lotto.web.entity;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Entity
 public class LottoAnswer {
 
@@ -16,5 +14,8 @@ public class LottoAnswer {
     public LottoAnswer(Long id, String lottoAnswer) {
         this.id = id;
         this.lottoAnswer = lottoAnswer;
+    }
+
+    public LottoAnswer(){
     }
 }

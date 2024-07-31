@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LottoService {
@@ -34,15 +35,10 @@ public class LottoService {
     public void buyLotto(LottoRequest lottoRequest) {
         int money = userService.getUserMoney(lottoRequest.getUserId());
         validateLottoMoney(money, lottoRequest.getCount());
+        LottoAnswer lottoAnswer = getLottoAnswer();
         saveLottos(lottoRequest);
         userService.buyLotto(lottoRequest);
 
-    }
-
-    public void createLottoAnswer() {
-        Lotto lotto = new Lotto(createRandomNumber);
-        LottoAnswer lottoAnswer = new LottoAnswer(null, lotto.getLotto().toString());
-        lottoAnswerRepository.save(lottoAnswer);
     }
 
     public LottoResponse getLotto(Long id, int order) {
@@ -68,6 +64,18 @@ public class LottoService {
             LottoEntity lottoEntity = lottoRequest.toLottoEntity(user, lotto.getLotto().toString());
             lottoRepository.save(lottoEntity);
         }
+    }
+
+    private LottoAnswer getLottoAnswer(){
+        Optional<LottoAnswer> lottoAnswer = lottoAnswerRepository.findFirstByOrderById();
+        return lottoAnswer.orElseGet(this::createLottoAnswer);
+    }
+
+    public LottoAnswer createLottoAnswer() {
+        Lotto lotto = new Lotto(createRandomNumber);
+        LottoAnswer lottoAnswer = new LottoAnswer(null, lotto.getLotto().toString());
+        lottoAnswerRepository.save(lottoAnswer);
+        return lottoAnswer;
     }
 
     private void validateLottoMoney(int money, int count) {
