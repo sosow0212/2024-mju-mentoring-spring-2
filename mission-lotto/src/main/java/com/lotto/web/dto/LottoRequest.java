@@ -2,9 +2,7 @@ package com.lotto.web.dto;
 
 import com.lotto.web.entity.LottoEntity;
 import com.lotto.web.entity.User;
-import lombok.Getter;
 
-@Getter
 public record LottoRequest(int count, Long userId) {
 
     public LottoEntity toLottoEntity(User user, String lottoNumber, boolean win) {

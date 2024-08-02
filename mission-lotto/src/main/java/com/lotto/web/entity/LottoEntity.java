@@ -27,11 +27,11 @@ public class LottoEntity {
     public LottoEntity() {
     }
 
-    public boolean getWin() {
-        return win;
-    }
-
     public String getLottoNumber(){
         return lottoNumber;
+    }
+
+    public boolean getWin(){
+        return win;
     }
 }
