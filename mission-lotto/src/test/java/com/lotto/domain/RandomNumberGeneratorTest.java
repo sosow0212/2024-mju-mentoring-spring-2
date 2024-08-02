@@ -1,5 +1,6 @@
 package com.lotto.domain;
 
+import com.lotto.service.infrastructure.vo.RandomNumberGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class RandomNumberGeneratorTest {
     void 로또생성테스트() {
 
         // given
-        RandomNumberGenerator rng = new RandomNumberGenerator();
+        RandomNumberGenerator rng = new RandomNumberGenerator(random);
         List<Integer> numbers = rng.generateRandomNumber();
 
         // when

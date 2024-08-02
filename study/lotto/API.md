@@ -22,6 +22,8 @@ Response
 
 --- POST
 http://localhost:8080/api/lottos/buy
+
+
 ```json
 
 {
@@ -30,15 +32,6 @@ http://localhost:8080/api/lottos/buy
 }
 ```
 
-
-Response
-
-```json
-
-{
-  "message" : "구매완료됨"
-}
-```
 
 ---
 

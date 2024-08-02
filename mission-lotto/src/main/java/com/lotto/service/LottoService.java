@@ -1,21 +1,24 @@
 package com.lotto.service;
 
-import com.lotto.domain.Lotto;
-import com.lotto.domain.Lottos;
-import com.lotto.domain.RandomNumberGenerator;
 import com.lotto.entity.LottoTicket;
 import com.lotto.entity.User;
 import com.lotto.repository.LottoTicketRepository;
 import com.lotto.repository.UserRepository;
-import com.lotto.service.exception.NotEnoughMoneyException;
+import com.lotto.service.exception.InsufficientBalanceException;
 import com.lotto.service.exception.NotFoundUserException;
+import com.lotto.service.infrastructure.vo.Lotto;
+import com.lotto.service.infrastructure.vo.RandomNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class LottoService {
+
+    private static final int TICKET_PRICE = 1000;
 
     @Autowired
     private LottoTicketRepository lottoTicketRepository;
@@ -23,32 +26,38 @@ public class LottoService {
     @Autowired
     private UserRepository userRepository;
 
-    private final RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
+    @Autowired
+    private RandomNumberGenerator randomNumberGenerator;
 
-    public void buyTickets(Long userId, int ticketCount) {
+    @Transactional
+    public List<LottoTicket> buyTickets(Long userId, int ticketCount) {
         User user = userRepository.findById(userId).orElseThrow(NotFoundUserException::new);
-        validateNotEnoughMoney(ticketCount, user);
-        Lottos lottos = new Lottos(randomNumberGenerator);
-        List<Lotto> generateLottos = lottos.generateLottoTickets(ticketCount);
-        settingLottos(generateLottos, user);
-        user.setBalance(user.getBalance() - ticketCount * 1000);
+        if (user.getBalance() < ticketCount * TICKET_PRICE) {
+            throw new InsufficientBalanceException();
+        }
+
+        List<LottoTicket> tickets = new ArrayList<>();
+        for (int i = 0; i < ticketCount; i++) {
+            Lotto lotto = Lotto.from(randomNumberGenerator);
+            LottoTicket ticket = new LottoTicket();
+            ticket.setUser(user);
+            ticket.setNumbers(String.join(",", lotto.getNumbers().stream().map(String::valueOf).toArray(String[]::new)));
+            ticket.setWinner(false);
+            tickets.add(lottoTicketRepository.save(ticket));
+        }
+
+        user.setBalance(user.getBalance() - ticketCount * TICKET_PRICE);
         userRepository.save(user);
+
+        return tickets;
     }
 
-    private void settingLottos(final List<Lotto> generateLottos, final User user) {
-        for (Lotto lotto : generateLottos) {
-            LottoTicket ticket = new LottoTicket(user.getUserId(), user.getUserName(), lotto.lotto(), false);
-            lottoTicketRepository.save(ticket);
-        }
+    public List<LottoTicket> getTicketsByUserId(Long userId) {
+        return lottoTicketRepository.findByUserUsrId(userId);
     }
 
-    public List<LottoTicket> getTickets(Long userId) {
-        return lottoTicketRepository.findByUserId(userId);
-    }
-
-    private static void validateNotEnoughMoney(final int ticketCount, final User user) {
-        if (user.getBalance() < ticketCount * 1000) {
-            throw new NotEnoughMoneyException();
-        }
+    public int getTotalWinnings(Long userId) {
+        List<LottoTicket> tickets = lottoTicketRepository.findByUserUsrId(userId);
+        return (int) tickets.stream().filter(LottoTicket::isWinner).count() * 1000000;
     }
 }

@@ -1,40 +1,37 @@
 package com.lotto.entity;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
-@NoArgsConstructor
 @Table(name = "LottoTicket")
 public class LottoTicket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long ticketId;
 
     @Column
-    private Long userId;
+    private String  numbers;
 
     @Column
-    private String userName;
+    private boolean isWinner;
 
-    @ElementCollection
-    @Column(name = "numbers")
-    private List<Integer> numbers;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
-    @Column
-    private boolean winner;
-
-    public LottoTicket(Long userId, String userName, List<Integer> numbers, boolean winner) {
-        this.userId = userId;
-        this.userName = userName;
-        this.numbers = numbers;
-        this.winner = winner;
-    }
 }

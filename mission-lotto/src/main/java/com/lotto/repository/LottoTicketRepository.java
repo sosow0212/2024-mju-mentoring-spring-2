@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface LottoTicketRepository extends JpaRepository<LottoTicket, Long> {
-    List<LottoTicket> findByUserId(Long userId);
+    List<LottoTicket> findByUserUsrId(Long userId);
 }

@@ -1,11 +1,12 @@
 package com.lotto.controller;
 
-import com.lotto.controller.dto.UserRequest;
-import com.lotto.controller.dto.UserResponse;
 import com.lotto.entity.User;
 import com.lotto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -15,14 +16,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public UserResponse createUser(@RequestBody UserRequest userRequest) {
-        User user = userService.createUser(userRequest.getUserName(), userRequest.getBalance());
-        return new UserResponse(user.getUserId(), user.getUserName(), user.getBalance());
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        try {
+            return ResponseEntity.ok(userService.createUser(user));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    @GetMapping("/{userId}")
-    public UserResponse getUser(@PathVariable Long userId) {
-        User user = userService.findByUserId(userId);
-        return new UserResponse(user.getUserId(), user.getUserName(), user.getBalance());
+    @GetMapping("/allUsers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 }
