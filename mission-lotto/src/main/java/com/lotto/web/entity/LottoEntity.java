@@ -1,11 +1,9 @@
 package com.lotto.web.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 
 @Entity
 @Table(name = "LottoTicket")
-@Getter
 public class LottoEntity {
 
     @Id
@@ -31,5 +29,9 @@ public class LottoEntity {
 
     public boolean getWin() {
         return win;
+    }
+
+    public String getLottoNumber(){
+        return lottoNumber;
     }
 }

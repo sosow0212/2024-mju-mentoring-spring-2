@@ -5,15 +5,7 @@ import com.lotto.web.entity.User;
 import lombok.Getter;
 
 @Getter
-public class LottoRequest {
-
-    private final int count;
-    private final Long userId;
-
-    public LottoRequest(int count, Long userId) {
-        this.count = count;
-        this.userId = userId;
-    }
+public record LottoRequest(int count, Long userId) {
 
     public LottoEntity toLottoEntity(User user, String lottoNumber, boolean win) {
         return new LottoEntity(null, user, lottoNumber, win);

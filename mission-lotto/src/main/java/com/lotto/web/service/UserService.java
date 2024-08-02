@@ -39,9 +39,9 @@ public class UserService {
     }
 
     public void updateMoney(LottoRequest lottoRequest) {
-        User user = getUser(lottoRequest.getUserId());
-        int money = user.getMoney() - lottoRequest.getCount() * 1000;
-        User updatedUser = new User(user.getId(), user.getName(), money, user.getLottoCount() + lottoRequest.getCount());
+        User user = getUser(lottoRequest.userId());
+        int money = user.getMoney() - lottoRequest.count() * 1000;
+        User updatedUser = new User(user.getId(), user.getName(), money, user.getLottoCount() + lottoRequest.count());
         userRepository.save(updatedUser);
     }
 

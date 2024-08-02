@@ -35,8 +35,8 @@ public class LottoService {
     }
 
     public void buyLotto(LottoRequest lottoRequest) {
-        int money = userService.getUserMoney(lottoRequest.getUserId());
-        validateLottoMoney(money, lottoRequest.getCount());
+        int money = userService.getUserMoney(lottoRequest.userId());
+        validateLottoMoney(money, lottoRequest.count());
         LottoAnswer lottoAnswer = getLottoAnswer();
         saveLottos(lottoRequest, lottoAnswer.getLottoAnswer());
         userService.updateMoney(lottoRequest);
@@ -59,9 +59,9 @@ public class LottoService {
     }
 
     private void saveLottos(LottoRequest lottoRequest, String lottoAnswer) {
-        User user = userService.getUser(lottoRequest.getUserId());
+        User user = userService.getUser(lottoRequest.userId());
         LottoNumberParser parsedLottoAnswer = new LottoNumberParser(lottoAnswer);
-        for (int i = 0; i < lottoRequest.getCount(); i++) {
+        for (int i = 0; i < lottoRequest.count(); i++) {
             Lotto lotto = new Lotto(createRandomNumber);
             int count = getLottoRank(lotto.getLotto(), parsedLottoAnswer.getLottoNumber());
             LottoEntity lottoEntity = lottoRequest.toLottoEntity(user, lotto.getLotto().toString(), win(count
