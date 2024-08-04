@@ -1,7 +1,6 @@
 package com.lotto;
 
 import com.lotto.controller.dto.RegisterRequest;
-import com.lotto.domain.RandomNumber;
 import com.lotto.entity.User;
 import com.lotto.entity.UserLotto;
 import com.lotto.exception.InsufficientFundsException;

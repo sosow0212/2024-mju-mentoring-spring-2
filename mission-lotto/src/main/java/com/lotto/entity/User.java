@@ -1,6 +1,5 @@
 package com.lotto.entity;
 
-import com.lotto.exception.InsufficientFundsException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +33,7 @@ public class User {
 
     public void addUserLotto(UserLotto userLotto) {
         if (this.userLotto == null) {
-            this.userLotto = new ArrayList<>(); // null 체크 후 초기화
+            this.userLotto = new ArrayList<>();
         }
         userLotto.setUser(this);
         this.userLotto.add(userLotto);
