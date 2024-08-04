@@ -36,9 +36,6 @@ public class LottoServiceTest {
     private LottoService lottoService;
 
     @Autowired
-    private RandomNumber randomNumber;
-
-    @Autowired
     private UserService userService;
 
     @BeforeEach
