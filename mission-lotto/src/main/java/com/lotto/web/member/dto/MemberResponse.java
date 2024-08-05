@@ -1,4 +1,4 @@
 package com.lotto.web.member.dto;
 
-public record MemberResponse(String name, int lottoTicket, int winning) {
+public record MemberResponse(Long id, String name, int lottoTicket, int winning) {
 }

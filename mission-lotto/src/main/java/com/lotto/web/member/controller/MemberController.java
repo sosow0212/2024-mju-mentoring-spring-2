@@ -2,7 +2,6 @@ package com.lotto.web.member.controller;
 
 import com.lotto.web.member.dto.CreateRequest;
 import com.lotto.web.member.dto.MemberResponse;
-import com.lotto.web.member.entity.Member;
 import com.lotto.web.member.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +20,14 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping("/users")
+    @PostMapping("/members")
     public ResponseEntity<Void> createUser(@RequestBody CreateRequest createRequest){
-        Member member = memberService.createUser(createRequest);
-        URI location = URI.create("/api/users/"+ member.getId());
+        MemberResponse memberResponse = memberService.createMember(createRequest);
+        URI location = URI.create("/api/members/"+ memberResponse.id());
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/users")
+    @GetMapping("/members")
     public ResponseEntity<List<MemberResponse>> showUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getAllUsers());
     }

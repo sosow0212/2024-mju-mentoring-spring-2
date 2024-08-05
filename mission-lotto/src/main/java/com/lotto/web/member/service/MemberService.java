@@ -22,10 +22,10 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member createUser(CreateRequest createRequest) {
+    public MemberResponse createMember(CreateRequest createRequest) {
         Member member = createRequest.toUserEntity();
         memberRepository.save(member);
-        return member;
+        return new MemberResponse(member.getId(), member.getName(), member.getLottoCount(), member.getWinning());
     }
 
     public int getUserMoney(Long id) {
@@ -49,14 +49,14 @@ public class MemberService {
     public List<MemberResponse> getAllUsers() {
         List<Member> members = memberRepository.findAll();
         validateUserExist(members);
-        List<MemberResponse> memberRespons = new ArrayList<>();
+        List<MemberResponse> memberResponse = new ArrayList<>();
         for (Member member : members) {
-            memberRespons.add(new MemberResponse(member.getName(), member.getLottoCount(), member.getWinning()));
+            memberResponse.add(new MemberResponse(member.getId(), member.getName(), member.getLottoCount(), member.getWinning()));
         }
-        return memberRespons;
+        return memberResponse;
     }
 
-    public void saveWinning(Member member, int count){
+    public void saveWinning(Member member, int count) {
         int winning = LottoPrice.getLottoPrice(count);
         Member updatedMember = new Member(member.getId(), member.getName(), member.getMoney(), member.getLottoCount(), winning);
         memberRepository.save(updatedMember);
