@@ -19,19 +19,19 @@ public class LottoController {
         this.lottoService = lottoService;
     }
 
-    @PostMapping("/buy")
+    @PostMapping("/lottos")
     public ResponseEntity<Void> buyLottos(@RequestBody LottoRequest lottoRequest) {
         lottoService.buyLotto(lottoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/user/{id}/lottos")
-    public ResponseEntity<List<LottoResponse>> showLottos(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(lottoService.getLottos(id));
+    @GetMapping("/users/{userId}/lottos")
+    public ResponseEntity<List<LottoResponse>> showLottos(@PathVariable Long userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(lottoService.getLottos(userId));
     }
 
-    @GetMapping(value = "/user/{id}/lottos", params = "order")
-    public ResponseEntity<LottoResponse> showLotto(@PathVariable Long id, @RequestParam("order") int order) {
-        return ResponseEntity.status(HttpStatus.OK).body(lottoService.getLotto(id, order));
+    @GetMapping(value = "/users/{userId}/lottos", params = "order")
+    public ResponseEntity<LottoResponse> showLotto(@PathVariable Long userId, @RequestParam("order") int order) {
+        return ResponseEntity.status(HttpStatus.OK).body(lottoService.getLotto(userId, order));
     }
 }
