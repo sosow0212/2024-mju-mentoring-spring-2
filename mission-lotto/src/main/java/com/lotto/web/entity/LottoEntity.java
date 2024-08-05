@@ -17,8 +17,7 @@ public class LottoEntity {
     @Column
     private boolean win;
 
-    public LottoEntity(Long id, User user, String lottoNumber, boolean win) {
-        this.id = id;
+    public LottoEntity(User user, String lottoNumber, boolean win) {
         this.user = user;
         this.lottoNumber = lottoNumber;
         this.win = win;
