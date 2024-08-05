@@ -22,9 +22,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void createUser(CreateRequest createRequest) {
+    public User createUser(CreateRequest createRequest) {
         User user = createRequest.toUserEntity();
         userRepository.save(user);
+        return user;
     }
 
     public int getUserMoney(Long id) {
