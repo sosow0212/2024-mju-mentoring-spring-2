@@ -1,12 +1,11 @@
 package com.lotto.web.member.service;
 
 import com.lotto.web.lotto.domain.LottoPrice;
-import com.lotto.web.lotto.domain.exception.CustomErrorCode;
-import com.lotto.web.lotto.domain.exception.CustomException;
 import com.lotto.web.member.dto.CreateRequest;
 import com.lotto.web.lotto.dto.LottoRequest;
 import com.lotto.web.member.dto.MemberResponse;
 import com.lotto.web.member.entity.Member;
+import com.lotto.web.member.service.exception.NotFoundMemberException;
 import com.lotto.web.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +29,13 @@ public class MemberService {
 
     public int getUserMoney(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException(CustomErrorCode.EXCEPTION_USER));
+                .orElseThrow(NotFoundMemberException::new);
         return member.getMoney();
     }
 
     public Member getUser(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException(CustomErrorCode.EXCEPTION_USER));
+                .orElseThrow(NotFoundMemberException::new);
     }
 
     public void updateMoney(LottoRequest lottoRequest) {
@@ -64,7 +63,7 @@ public class MemberService {
 
     private void validateUserExist(List<Member> members) {
         if (members.isEmpty()) {
-            throw new CustomException(CustomErrorCode.EXCEPTION_USER);
+            throw new NotFoundMemberException();
         }
     }
 }

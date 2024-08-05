@@ -4,13 +4,13 @@ import com.lotto.web.lotto.domain.CreateRandomNumber;
 import com.lotto.web.lotto.domain.Lotto;
 import com.lotto.web.lotto.domain.LottoNumberParser;
 import com.lotto.web.lotto.domain.LottoRank;
-import com.lotto.web.lotto.domain.exception.CustomErrorCode;
-import com.lotto.web.lotto.domain.exception.CustomException;
+import com.lotto.web.lotto.service.exception.NotFoundLottoException;
 import com.lotto.web.lotto.dto.LottoRequest;
 import com.lotto.web.lotto.dto.LottoResponse;
 import com.lotto.web.lotto.entity.LottoAnswer;
 import com.lotto.web.lotto.entity.LottoEntity;
 import com.lotto.web.member.entity.Member;
+import com.lotto.web.member.service.exception.NotFoundMoneyException;
 import com.lotto.web.member.service.MemberService;
 import com.lotto.web.lotto.repository.LottoAnswerRepository;
 import com.lotto.web.lotto.repository.LottoRepository;
@@ -95,19 +95,19 @@ public class LottoService {
 
     private void validateLottoMoney(int money, int count) {
         if (money < count * 1000) {
-            throw new CustomException(CustomErrorCode.EXCEPTION_MONEY);
+            throw new NotFoundMoneyException();
         }
     }
 
     private void validateLottoOrder(List<LottoResponse> lottoResponses, int order) {
         if (order < 1 || order > lottoResponses.size()) {
-            throw new CustomException(CustomErrorCode.EXCEPTION_LOTTO);
+            throw new NotFoundLottoException();
         }
     }
 
     private void validateLottoExist(List<LottoEntity> lottoEntities) {
         if (lottoEntities.isEmpty()) {
-            throw new CustomException(CustomErrorCode.EXCEPTION_LOTTO);
+            throw new NotFoundLottoException();
         }
     }
 }

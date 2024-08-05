@@ -592,3 +592,58 @@ Lotto
 
 ### 결론
 * 정답은 없지만 프로젝트 규모가 커지면 도메인 패키지 구조가 유리함.
+---
+
+## Spring 예외 처리 
+
+
+* @Controller 및 @ControllerAdvice 클래스는 컨트롤러 메서드에서 발생하는 예외를 처리하기 위해 @ExceptionHandler 메서드를 가질 수 있다.
+~~~
+@Controller
+public class SimpleController {
+
+    // ...
+
+    @ExceptionHandler
+    public ResponseEntity<String> handle(IOException ex) {
+        // 예외 처리 로직
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("IOException occurred: " + ex.getMessage());
+    }
+}
+~~~
+
+### ControllerAdvice
+* @ControllerAdvice와 @RestControllerAdvice는 예외 처리, 데이터 바인딩, 모델 속성 설정 등의 기능을 글로벌하게 적용하기 위해 사용되는 기능.
+
+#### 기본 원리
+* @ExceptionHandler, @InitBinder, @ModelAttribute 메서드는 선언된 @Controller 클래스(또는 클래스 계층) 내에서 적용. 이러한 메서드를 전역적으로(여러 컨트롤러에 걸쳐) 적용하고자 할 경우, @ControllerAdvice 또는 @RestControllerAdvice 어노테이션이을 붙여 클래스 선언 가능.
+* @ControllerAdvice는 @Component로도 어노테이트되어 있으므로, 컴포넌트 스캐닝을 통해 스프링 빈으로 등록될 수 있다.
+* @RestControllerAdvice는 @ControllerAdvice와 @ResponseBody가 결합된 어노테이션으로, @ExceptionHandler 메서드를 메시지 변환을 통해 응답 본문으로 렌더링한다.
+
+#### 동작 방식
+* 애플리케이션 시작 시, @RequestMapping 및 @ExceptionHandler 메서드에 대한 클래스는 @ControllerAdvice로 어노테이트된 스프링 빈을 감지하고, 런타임에 해당 메서드를 적용. 전역 @ExceptionHandler 메서드(즉, @ControllerAdvice에서 선언된 메서드)는 로컬 메서드(즉, @Controller에서 선언된 메서드) 이후에 적용된다(Controller 예외 먼저, 이후 ControllerAdvice 예외 적용). 반면, 전역 @ModelAttribute 및 @InitBinder 메서드는 로컬 메서드 이전에 적용.
+
+```적용 범위 좁히기```
+* 기본적으로 @ControllerAdvice 메서드는 모든 요청(모든 컨트롤러)에 적용된다. 그러나 애노테이션의 속성을 사용하여 특정 컨트롤러의 하위 집합에만 적용되도록 범위를 좁힐 수 있다.
+
+~~~
+// @RestController로 어노테이트된 모든 컨트롤러를 대상으로 함
+@ControllerAdvice(annotations = RestController.class)
+public class ExampleAdvice1 {}
+
+// 특정 패키지 내의 모든 컨트롤러를 대상으로 함
+@ControllerAdvice("org.example.controllers")
+public class ExampleAdvice2 {}
+
+// 특정 클래스에 할당 가능한 모든 컨트롤러를 대상으로 함
+@ControllerAdvice(assignableTypes = {ControllerInterface.class, AbstractController.class})
+public class ExampleAdvice3 {}
+~~~
+
+### ExceptionHandler
+* @ExceptionHandler 메서드는 컨트롤러 메서드에서 발생하는 특정 예외를 처리할 수 있다.
+* @RestControllerAdvice와 함께 사용하여 전역 예외 처리를 구현할 수 있음.
+* 메서드 인수: @ExceptionHandler 메서드는 @RequestMapping 메서드와 동일한 메서드 인수를 지원.
+* 반환 값: @ExceptionHandler 메서드는 @RequestMapping 메서드와 동일한 반환 값을 지원.
+
+---

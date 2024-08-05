@@ -1,7 +1,6 @@
 package com.lotto.web.lotto.domain.vo;
 
-import com.lotto.web.lotto.domain.exception.CustomErrorCode;
-import com.lotto.web.lotto.domain.exception.CustomException;
+import com.lotto.web.lotto.domain.vo.exception.LottoRangeException;
 
 public class Number {
 
@@ -25,7 +24,7 @@ public class Number {
 
     private static void validateNumberRange(int number) {
         if (number > MAXIMUM_LOTTO_NUMBER || number < MINIMUM_LOTTO_NUMBER) {
-            throw new CustomException(CustomErrorCode.EXCEPTION_RANGE);
+            throw new LottoRangeException();
         }
     }
 }
