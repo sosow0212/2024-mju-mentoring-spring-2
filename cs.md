@@ -18,30 +18,6 @@
 
 - 소프트웨어의 복잡성을 관리하고 구조를 명확히 하는데 도움을 줌.
 - 효과적인 유지보수, 높은 재사용성, 유연한 설계패턴
-
----
-## record 클래스란? 
-
-- ava Record는 bolierplate code를 줄이는 것을 목표로 하는 특별한 형태의 클래스 선언 방법.
-
-### 구조
-
-- public record TestRecord(String name, int age) {} : 일반적인 클래스와 다르게 선언과 함께 필드(컴포넌트)를 나열하여 선언
-
-### 기능
-
-- 상속 불가능 처리 (final class)
-- 필드 private final 처리 및 Setter 미구현을 통한 불변성 제공
-- Getter 구현
-- equals() 구현
-  - 일반 클래스는 주소 값을 비교하여 equals() 메서드 동작하지만, record 클래스는 이를 override 하여 모든 필드 값을 비교하도록 되어있음.
-- hashCode() 구현
-- toString() 구현
-
-### Compact 생성자
-
-- 표준 생성자와는 달리 컴팩트 생성자 내부에서는 인스턴스 필드에 접근할 수 없다는 특징이 있음. 따라서 validation으로 사용 가능.
-
 ---
 
 ## 스프링 동작 원리
