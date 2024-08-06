@@ -56,8 +56,9 @@ public class MemberService {
     }
 
     public void saveWinning(Member member, int count) {
+        int memberWinning = member.getWinning();
         int winning = LottoPrice.getLottoPrice(count);
-        Member updatedMember = new Member(member.getId(), member.getName(), member.getMoney(), member.getLottoCount(), winning);
+        Member updatedMember = new Member(member.getId(), member.getName(), member.getMoney(), member.getLottoCount(), memberWinning + winning);
         memberRepository.save(updatedMember);
     }
 

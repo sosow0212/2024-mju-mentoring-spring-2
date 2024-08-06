@@ -24,7 +24,7 @@ public class LottoEntity {
         this.win = win;
     }
 
-    public LottoEntity() {
+    protected LottoEntity() {
     }
 
     public String getLottoNumber(){

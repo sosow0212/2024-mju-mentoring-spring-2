@@ -33,7 +33,7 @@ public class Member {
         this.lottoCount = lottoCount;
     }
 
-    public Member() {
+    protected Member() {
     }
 
     public Long getId(){

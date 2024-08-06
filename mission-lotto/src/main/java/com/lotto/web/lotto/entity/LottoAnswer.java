@@ -16,7 +16,7 @@ public class LottoAnswer {
         this.lottoAnswer = lottoAnswer;
     }
 
-    public LottoAnswer(){
+    protected LottoAnswer(){
     }
 
     public String getLottoAnswer(){

@@ -647,3 +647,17 @@ public class ExampleAdvice3 {}
 * 반환 값: @ExceptionHandler 메서드는 @RequestMapping 메서드와 동일한 반환 값을 지원.
 
 ---
+
+## Entity - 기본 생성자 필요한 이유
+* 기본 생성자가 존재하지 않는다면 DB에서 조회해 온 값을 엔티티로 만들 때 객체 생성 자체가 실패함. (JPA가 엔티티를 인스턴스화할 때 리플렉션(Reflection)을 사용하기 때문.)
+
+``리플랙션이란? - 자바 프로그래밍 언어에서 런타임에 클래스, 인터페이스, 메서드, 필드 등의 구조를 검사하고 조작할 수 있는 기능을 의미.``
+
+### 기본 생성자의 접근 제어자는 어떤 것을 써야 할까?
+* 결론 : protected
+  * lombok 의 @NoArgsConstructor(access = AccessLevel.PROTECTED)를 엔티티 클래스 위에 선언함으로 간단하게 생성자를 사용
+
+1. private 사용했을 경우 : 리플랙션 사용할 때 접근 자체가 불가능 -> JPA는 프록시 기술을 사용하는데 거기서 프록시 기술을 쓸 때, jpa hibernate가 객체를 강제로 만들어야하는데 private 로 만들어보리면 막혀버림.
+2. public 사용했을 경우 : 
+   * public을 사용하면 setter 사용 가능 -> 객체의 일관성을 보장 X
+   * 모든 클래스가 User 엔티티를 자유롭게 인스턴스화할 수 있게 됨 -> 캡슐화 위반
