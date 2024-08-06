@@ -1,5 +1,6 @@
 package com.lotto.web.member.entity;
 
+import com.lotto.web.member.entity.exception.NotFoundMoneyException;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,33 +27,43 @@ public class Member {
         this.winning = winning;
     }
 
-    public Member(Long id, String name, int money, int lottoCount) {
-        this.id = id;
+    public Member(String name, int money) {
         this.name = name;
         this.money = money;
-        this.lottoCount = lottoCount;
     }
 
     protected Member() {
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public int getMoney(){
+    public int getMoney() {
         return money;
     }
 
-    public int getLottoCount(){
+    public int getLottoCount() {
         return lottoCount;
     }
 
-    public int getWinning(){
+    public int getWinning() {
         return winning;
+    }
+
+    public void buyLotto(int count) {
+        validateLottoMoney(count);
+        this.money -= count * 1000;
+        this.lottoCount += count;
+    }
+
+    private void validateLottoMoney(int count) {
+        if (money < count * 1000) {
+            throw new NotFoundMoneyException();
+        }
     }
 }

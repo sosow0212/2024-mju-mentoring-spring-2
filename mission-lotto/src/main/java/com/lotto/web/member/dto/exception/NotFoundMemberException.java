@@ -1,4 +1,4 @@
-package com.lotto.web.member.service.exception;
+package com.lotto.web.member.dto.exception;
 
 import com.lotto.web.global.exception.exceptions.CustomErrorCode;
 import com.lotto.web.global.exception.exceptions.CustomException;

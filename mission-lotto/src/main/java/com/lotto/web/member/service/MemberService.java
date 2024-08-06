@@ -2,14 +2,14 @@ package com.lotto.web.member.service;
 
 import com.lotto.web.lotto.domain.LottoPrice;
 import com.lotto.web.member.dto.CreateRequest;
-import com.lotto.web.lotto.dto.LottoRequest;
 import com.lotto.web.member.dto.MemberResponse;
+import com.lotto.web.member.dto.MemberResponses;
 import com.lotto.web.member.entity.Member;
-import com.lotto.web.member.service.exception.NotFoundMemberException;
+import com.lotto.web.member.mapper.MemberMapper;
+import com.lotto.web.member.dto.exception.NotFoundMemberException;
 import com.lotto.web.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,49 +22,32 @@ public class MemberService {
     }
 
     public MemberResponse createMember(CreateRequest createRequest) {
-        Member member = createRequest.toUserEntity();
+        Member member = MemberMapper.toMember(createRequest);
         memberRepository.save(member);
-        return new MemberResponse(member.getId(), member.getName(), member.getLottoCount(), member.getWinning());
+        return MemberMapper.toMemberResponse(member);
     }
 
-    public int getUserMoney(Long id) {
-        Member member = memberRepository.findById(id)
-                .orElseThrow(NotFoundMemberException::new);
-        return member.getMoney();
+    public void buyLotto(Long id, int count) {
+        Member member = findUser(id);
+        member.buyLotto(count);
     }
 
-    public Member getUser(Long id) {
+    public Member findUser(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(NotFoundMemberException::new);
     }
 
-    public void updateMoney(LottoRequest lottoRequest) {
-        Member member = getUser(lottoRequest.userId());
-        int money = member.getMoney() - lottoRequest.count() * 1000;
-        Member updatedMember = new Member(member.getId(), member.getName(), money, member.getLottoCount() + lottoRequest.count());
-        memberRepository.save(updatedMember);
-    }
-
-    public List<MemberResponse> getAllUsers() {
+    public MemberResponses findAllUsers() {
         List<Member> members = memberRepository.findAll();
-        validateUserExist(members);
-        List<MemberResponse> memberResponse = new ArrayList<>();
-        for (Member member : members) {
-            memberResponse.add(new MemberResponse(member.getId(), member.getName(), member.getLottoCount(), member.getWinning()));
-        }
-        return memberResponse;
+        List<MemberResponse> memberResponses = members.stream()
+                .map(MemberMapper::toMemberResponse)
+                .toList();
+        return MemberMapper.toMemberResponses(memberResponses);
     }
 
     public void saveWinning(Member member, int count) {
-        int memberWinning = member.getWinning();
-        int winning = LottoPrice.getLottoPrice(count);
-        Member updatedMember = new Member(member.getId(), member.getName(), member.getMoney(), member.getLottoCount(), memberWinning + winning);
+        int winning = member.getWinning() + LottoPrice.getLottoPrice(count);
+        Member updatedMember = new Member(member.getId(), member.getName(), member.getMoney(), member.getLottoCount(), winning);
         memberRepository.save(updatedMember);
-    }
-
-    private void validateUserExist(List<Member> members) {
-        if (members.isEmpty()) {
-            throw new NotFoundMemberException();
-        }
     }
 }

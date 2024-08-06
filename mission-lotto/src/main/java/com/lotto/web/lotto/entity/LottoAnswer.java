@@ -11,15 +11,14 @@ public class LottoAnswer {
     @Column
     private String lottoAnswer;
 
-    public LottoAnswer(Long id, String lottoAnswer) {
-        this.id = id;
+    public LottoAnswer(String lottoAnswer) {
         this.lottoAnswer = lottoAnswer;
     }
 
-    protected LottoAnswer(){
+    protected LottoAnswer() {
     }
 
-    public String getLottoAnswer(){
+    public String getLottoAnswer() {
         return lottoAnswer;
     }
 }

@@ -2,12 +2,11 @@ package com.lotto.web.lotto.controller;
 
 import com.lotto.web.lotto.dto.LottoRequest;
 import com.lotto.web.lotto.dto.LottoResponse;
+import com.lotto.web.lotto.dto.LottoResponses;
 import com.lotto.web.lotto.service.LottoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -26,7 +25,7 @@ public class LottoController {
     }
 
     @GetMapping("/members/{memberId}/lottos")
-    public ResponseEntity<List<LottoResponse>> showLottos(@PathVariable Long memberId) {
+    public ResponseEntity<LottoResponses> showLottos(@PathVariable Long memberId) {
         return ResponseEntity.status(HttpStatus.OK).body(lottoService.getLottos(memberId));
     }
 

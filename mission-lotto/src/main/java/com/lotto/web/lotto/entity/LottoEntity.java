@@ -10,7 +10,7 @@ public class LottoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
     @Column
@@ -27,11 +27,11 @@ public class LottoEntity {
     protected LottoEntity() {
     }
 
-    public String getLottoNumber(){
+    public String getLottoNumber() {
         return lottoNumber;
     }
 
-    public boolean getWin(){
+    public boolean getWin() {
         return win;
     }
 }

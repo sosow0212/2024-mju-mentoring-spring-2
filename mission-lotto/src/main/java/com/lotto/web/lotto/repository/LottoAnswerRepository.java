@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface LottoAnswerRepository extends JpaRepository<LottoAnswer, Long> {
 
-   Optional<LottoAnswer> findFirstByOrderById();
+    Optional<LottoAnswer> findFirstByOrderById();
 }
