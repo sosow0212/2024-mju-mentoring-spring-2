@@ -1,8 +1,8 @@
-package com.lotto.web.exception.controller;
+package com.lotto.web.global.exception.exceptionhandler;
 
-import com.lotto.web.exception.domain.CustomErrorCode;
-import com.lotto.web.exception.domain.CustomException;
-import com.lotto.web.exception.dto.ErrorResponse;
+import com.lotto.web.global.exception.exceptions.CustomErrorCode;
+import com.lotto.web.global.exception.exceptions.CustomException;
+import com.lotto.web.global.exception.exceptions.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,4 +1,4 @@
-package com.lotto.web.exception.domain;
+package com.lotto.web.global.exception.exceptions;
 
 public enum CustomErrorCode {
 
