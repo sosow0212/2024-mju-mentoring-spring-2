@@ -795,4 +795,48 @@ public List<User> findUsersByName(String name) {
 **사용법**
 1. @BeforEach 사용해서 객체 setUp, @AfterEach 사용해서 객체 delete
 2. Fixture 패키지 -> MemberFixture -> 정적 팩토리 메서드로 객체 생성.
+
+### @MockMvc(Controller 테스트)
+* @AutoConfigureMockMvc 어노테이션을 사용하여 구성할 수도 있다. but 이 접근 방식은 Spring Boot가 전체 애플리케이션 컨텍스트를 실행하도록 요구하므로 테스트 실행 속도가 느려질 수 있음.
+1. ArticleController 컨트롤러에 대해서만 컨텍스트를 인스턴스화하도록 지정
+~~~
+@WebMvcTest(ArticleController.class)
+class ArticleControllerUnitTest {
+    @Autowired
+    private MockMvc mockMvc;
+}
+~~~
+
+2. 객체로 응답 받는 법 - 엔트포인트: /article
+~~~
+MvcResult result = this.mockMvc.perform(get("/article"))
+  .andExpect(status().isOk())
+  .andReturn();
+~~~
+
+3. 원하는 문자열로 응답 받는 법 - objectMapper 이용
+~~~
+String json = result.getResponse().getContentAsString();
+Article article = objectMapper.readValue(json, Article.class);
+
+assertNotNull(article);
+assertEquals(1L, article.getId());
+assertEquals("Learn Spring Boot", article.getTitle());
+~~~
+
+4. 객체 컬렉션 얻는 법 - TypeReference 제네릭 클래스를 사용
+~~~
+@Test
+void whenGetArticle_thenReturnListUsingJacksonTypeReference() throws Exception {
+    MvcResult result = this.mockMvc.perform(get("/articles"))
+      .andExpect(status().isOk())
+      .andReturn();
+
+    String json = result.getResponse().getContentAsString();
+    List<Article> articles = objectMapper.readValue(json, new TypeReference<>(){});
+
+    assertNotNull(articles);
+    assertEquals(2, articles.size());
+}
+~~~
 ---
