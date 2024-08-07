@@ -61,6 +61,10 @@ public class Member {
         this.lottoCount += count;
     }
 
+    public void setWinning(int winning){
+        this.winning = winning;
+    }
+
     private void validateLottoMoney(int count) {
         if (money < count * 1000) {
             throw new NotFoundMoneyException();

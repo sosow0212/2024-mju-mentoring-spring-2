@@ -15,6 +15,7 @@ import com.lotto.web.member.service.MemberService;
 import com.lotto.web.lotto.repository.LottoAnswerRepository;
 import com.lotto.web.lotto.repository.LottoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,18 +35,21 @@ public class LottoService {
         this.lottoAnswerRepository = lottoAnswerRepository;
     }
 
+    @Transactional
     public void buyLotto(LottoRequest lottoRequest) {
         memberService.buyLotto(lottoRequest.userId(), lottoRequest.count());
         LottoAnswer lottoAnswer = getLottoAnswer();
         saveLottos(lottoRequest, lottoAnswer.getLottoAnswer());
     }
 
+    @Transactional(readOnly = true)
     public LottoResponse getLotto(Long id, int order) {
         LottoResponses lottoResponses = getLottos(id);
         LottoResponses checkedOrderLottoResponses = LottoResponses.of(lottoResponses, order);
         return checkedOrderLottoResponses.lottoResponses().get(order - 1);
     }
 
+    @Transactional(readOnly = true)
     public LottoResponses getLottos(Long id) {
         List<LottoEntity> lottoEntities = lottoRepository.findAllByMemberId(id);
         List<LottoResponse> lottoResponses = lottoEntities.stream()
