@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class LottoService {
 
     private final CreateRandomNumber createRandomNumber;
@@ -35,7 +36,6 @@ public class LottoService {
         this.lottoAnswerRepository = lottoAnswerRepository;
     }
 
-    @Transactional
     public void buyLotto(LottoRequest lottoRequest) {
         memberService.buyLotto(lottoRequest.userId(), lottoRequest.count());
         LottoAnswer lottoAnswer = getLottoAnswer();

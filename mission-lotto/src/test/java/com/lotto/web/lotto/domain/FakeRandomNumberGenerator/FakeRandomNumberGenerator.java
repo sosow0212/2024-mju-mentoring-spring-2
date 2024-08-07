@@ -1,4 +1,4 @@
-package com.lotto.web.domain.FakeRandomNumberGenerator;
+package com.lotto.web.lotto.domain.FakeRandomNumberGenerator;
 
 import com.lotto.web.lotto.domain.CreateRandomNumber;
 

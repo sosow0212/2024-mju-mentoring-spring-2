@@ -35,6 +35,10 @@ public class Member {
         return name;
     }
 
+    public int getMoney() {
+        return money;
+    }
+
     public int getLottoCount() {
         return lottoCount;
     }
@@ -49,7 +53,7 @@ public class Member {
         this.lottoCount += count;
     }
 
-    public void setWinning(int winning){
+    public void setWinning(int winning) {
         this.winning = winning;
     }
 

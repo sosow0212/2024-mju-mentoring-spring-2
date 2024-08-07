@@ -1,6 +1,5 @@
-package com.lotto.web.domain;
+package com.lotto.web.lotto.domain;
 
-import com.lotto.web.lotto.domain.LottoNumberParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

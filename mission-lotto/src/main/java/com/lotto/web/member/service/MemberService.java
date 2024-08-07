@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -22,14 +23,12 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    @Transactional
     public MemberResponse createMember(CreateRequest createRequest) {
         Member member = MemberMapper.toMember(createRequest);
         memberRepository.save(member);
         return MemberMapper.toMemberResponse(member);
     }
 
-    @Transactional
     public void buyLotto(Long id, int count) {
         Member member = findUser(id);
         member.buyLotto(count);
@@ -50,7 +49,6 @@ public class MemberService {
         return MemberMapper.toMemberResponses(memberResponses);
     }
 
-    @Transactional
     public void saveWinning(Member member, int count) {
         int winning = member.getWinning() + LottoPrice.getLottoPrice(count);
         member.setWinning(winning);

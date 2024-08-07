@@ -1,8 +1,7 @@
-package com.lotto.web.domain.vo;
+package com.lotto.web.lotto.domain.vo;
 
 import com.lotto.web.lotto.domain.CreateRandomNumber;
-import com.lotto.web.domain.FakeRandomNumberGenerator.FakeRandomNumberGenerator;
-import com.lotto.web.lotto.domain.vo.Number;
+import com.lotto.web.lotto.domain.FakeRandomNumberGenerator.FakeRandomNumberGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
