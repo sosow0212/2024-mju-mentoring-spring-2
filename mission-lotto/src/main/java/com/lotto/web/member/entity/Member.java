@@ -19,14 +19,6 @@ public class Member {
     @Column
     private int winning;
 
-    public Member(Long id, String name, int money, int lottoCount, int winning) {
-        this.id = id;
-        this.name = name;
-        this.money = money;
-        this.lottoCount = lottoCount;
-        this.winning = winning;
-    }
-
     public Member(String name, int money) {
         this.name = name;
         this.money = money;
@@ -41,10 +33,6 @@ public class Member {
 
     public String getName() {
         return name;
-    }
-
-    public int getMoney() {
-        return money;
     }
 
     public int getLottoCount() {

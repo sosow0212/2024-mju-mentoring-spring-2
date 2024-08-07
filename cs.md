@@ -704,3 +704,32 @@ public class ExampleAdvice3 {}
 4. readOnly: 읽기 전용 트랜잭션 여부를 설정. (기본값: false)
 5. rollbackFor: 롤백을 유발할 예외 타입을 지정.
 6. noRollbackFor: 롤백을 유발하지 않을 예외 타입을 지정.
+
+---
+
+## JPA : 데베 상호작용을 위한 특징
+
+### 쓰기 지연 (Write-Behind/Write-Delay)
+* 쓰기 지연은 JPA가 엔티티에 대한 변경 사항을 즉시 데이터베이스에 반영하지 않고, 트랜잭션이 커밋될 때까지 변경 사항을 보류하는 기능. => 데이터베이스와의 상호작용 횟수를 줄여 성능을 최적화.
+
+### 더티 체킹 (Dirty Checking)
+* 더티 체킹은 JPA가 엔티티의 상태 변화를 감지하여 트랜잭션이 커밋될 때 자동으로 데이터베이스에 반영하는 기능. 엔티티의 속성 값이 변경되면, JPA는 이를 감지하고 필요한 업데이트 쿼리를 생성하여 데이터베이스에 반영.
+
+### 1차 캐시 (First-Level Cache)
+* 영속성 컨텍스트는 1차 캐시 역할을 함. 동일한 트랜잭션 내에서 동일한 엔티티를 여러 번 조회할 때, 데이터베이스를 다시 조회하지 않고 1차 캐시에서 엔티티를 반환 => 이렇게 하면 데이터베이스 접근 횟수를 줄이고 성능을 향상(최적화).
+
+### 지연 로딩 (Lazy Loading)과 즉시 로딩 (Eager Loading)
+* 엔티티 간의 연관 관계를 로딩할 때, JPA는 지연 로딩과 즉시 로딩을 제공. 
+  * 지연 로딩은 실제로 연관된 엔티티가 필요할 때까지 로딩을 지연시키는 방식. 
+  * 즉시 로딩은 엔티티를 조회할 때 연관된 엔티티도 즉시 로딩하는 방식.
+
+### JPQL (Java Persistence Query Language)
+* JPQL은 SQL과 유사한 구문을 사용하여 엔티티 객체를 조회하기 위한 쿼리 언어. JPQL은 데이터베이스 테이블이 아닌 엔티티 객체를 대상으로 쿼리를 작성.
+* gpt 예제
+~~~
+public List<User> findUsersByName(String name) {
+    return entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
+                        .setParameter("name", name)
+                        .getResultList();
+}
+~~~
