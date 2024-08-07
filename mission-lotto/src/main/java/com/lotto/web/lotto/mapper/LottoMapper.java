@@ -18,6 +18,6 @@ public class LottoMapper {
     }
 
     public static LottoResponses toLottoResponses(List<LottoResponse> lottoResponses) {
-        return LottoResponses.lottoResponses(lottoResponses);
+        return LottoResponses.form(lottoResponses);
     }
 }

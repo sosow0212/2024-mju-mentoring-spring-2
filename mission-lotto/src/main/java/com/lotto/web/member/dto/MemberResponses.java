@@ -6,7 +6,7 @@ import java.util.List;
 
 public record MemberResponses(List<MemberResponse> memberResponses) {
 
-    public static MemberResponses memberResponses(List<MemberResponse> memberResponses) {
+    public static MemberResponses form(List<MemberResponse> memberResponses) {
         validateMemberExist(memberResponses);
         return new MemberResponses(memberResponses);
     }

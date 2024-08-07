@@ -6,12 +6,12 @@ import java.util.List;
 
 public record LottoResponses(List<LottoResponse> lottoResponses) {
 
-    public static LottoResponses lottoResponses(List<LottoResponse> lottoResponses) {
+    public static LottoResponses form(List<LottoResponse> lottoResponses) {
         validateLottoExist(lottoResponses);
         return new LottoResponses(lottoResponses);
     }
 
-    public static LottoResponses checkOrderLottoResponses(LottoResponses lottoResponses, int order) {
+    public static LottoResponses of(LottoResponses lottoResponses, int order) {
         validateLottoOrder(lottoResponses, order);
         return new LottoResponses(lottoResponses.lottoResponses());
     }

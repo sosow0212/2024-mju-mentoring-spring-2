@@ -18,6 +18,6 @@ public class MemberMapper {
     }
 
     public static MemberResponses toMemberResponses(List<MemberResponse> memberResponses) {
-        return MemberResponses.memberResponses(memberResponses);
+        return MemberResponses.form(memberResponses);
     }
 }

@@ -42,7 +42,7 @@ public class LottoService {
 
     public LottoResponse getLotto(Long id, int order) {
         LottoResponses lottoResponses = getLottos(id);
-        LottoResponses checkedOrderLottoResponses = LottoResponses.checkOrderLottoResponses(lottoResponses, order);
+        LottoResponses checkedOrderLottoResponses = LottoResponses.of(lottoResponses, order);
         return checkedOrderLottoResponses.lottoResponses().get(order - 1);
     }
 
