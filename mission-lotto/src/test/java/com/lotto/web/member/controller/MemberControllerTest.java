@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -45,6 +46,8 @@ class MemberControllerTest {
                         .content(objectMapper.writeValueAsString(createRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("location", "/api/members/1"));
+
+        verify(memberService).createMember(createRequest);
     }
 
     @Test
@@ -59,5 +62,7 @@ class MemberControllerTest {
         mockMvc.perform(get("/api/members")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(memberService).findAllUsers();
     }
 }

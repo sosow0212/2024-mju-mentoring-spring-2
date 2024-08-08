@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +44,8 @@ class LottoControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(lottoRequest)))
                 .andExpect(status().isCreated());
+
+        verify(lottoService).buyLotto(lottoRequest);
     }
 
     @Test
@@ -52,10 +55,13 @@ class LottoControllerTest {
         List<LottoResponse> lottoResponse = List.of(new LottoResponse("[1, 2, 3, 4, 5, 6]", true));
         LottoResponses lottoResponses = new LottoResponses(lottoResponse);
         given(lottoService.getLottos(1L)).willReturn(lottoResponses);
+
         // then
         mockMvc.perform(get("/api/members/{memberId}/lottos", 1L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(lottoService).getLottos(1L);
     }
 
     @Test
@@ -64,10 +70,13 @@ class LottoControllerTest {
         // given
         LottoResponse lottoResponse = new LottoResponse("[1, 2, 3, 4, 5, 6]", true);
         given(lottoService.getLotto(1L, 1)).willReturn(lottoResponse);
+
         // then
         mockMvc.perform(get("/api/members/{memberId}/lottos", 1L, 1)
                         .param("order", "1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(lottoService).getLotto(1L, 1);
     }
 }
