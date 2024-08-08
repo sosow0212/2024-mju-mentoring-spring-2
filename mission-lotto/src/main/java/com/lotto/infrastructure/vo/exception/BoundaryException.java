@@ -1,4 +1,4 @@
-package com.lotto.service.infrastructure.vo.exception;
+package com.lotto.infrastructure.vo.exception;
 
 public class BoundaryException extends RuntimeException {
     public BoundaryException() {

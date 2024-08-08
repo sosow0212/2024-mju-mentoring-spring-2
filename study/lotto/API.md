@@ -8,7 +8,6 @@ http://localhost:8080/api/users
 ```
 
 
-
 Response
 
 ```json
@@ -28,14 +27,21 @@ http://localhost:8080/api/lottos/buy
 
 {
   "userId": "1",
-  "ticketCount": 5
+  "ticketCount": 2
 }
 ```
 
+--- POST
+http://localhost:8080/api/lottos/setWinningNumbers
+
+```json
+
+{
+  "winningTicketNumber":"1,2,3,4,5,6"
+}
+```
 
 ---
-
-
 
 - GET 
 http://localhost:8080/api/lottos/tickets
@@ -46,10 +52,22 @@ http://localhost:8080/api/lottos/tickets
   "userId": 1,
   "userName": "seungyeop",
   "numbers": "1,14,15,16,32,44,12",
-  "isWinner": false
+  "lottoPrice": 0
+}
+```
+
+```json
+
+{
+  "userId": 1,
+  "userName": "seungyeop",
+  "numbers": "1,2,6,21,24,45",
+  "lottoPrice": 0
+  
 }
 
 ```
+
 
 - GET
 http://localhost:8080/api/lottos/winnings
@@ -60,7 +78,7 @@ http://localhost:8080/api/lottos/winnings
 {
   "userId": 1,
   "userName": "seungyeop",
-  "ticketCount": 5,
+  "ticketCount": 2,
   "totalWinnings" : 0
 }
 
@@ -68,25 +86,25 @@ http://localhost:8080/api/lottos/winnings
 
 
 
-http://localhost:8080/api/lottos/tickets?userId=1
+http://localhost:8080/api/users/userId=1
 ```json
 
 {
   "userName": "seungyeop",
-  "ticketCount": 5,
+  "ticketCount": 2,
   "totalWinnings": 0,
-  "balance" : 5000
+  "balance" : 8000
   }
 ```
 
 
-http://localhost:8080/api/lottos/user/allUsers
+http://localhost:8080/api/allUsers
 ```json
 
 {
   "userId": 1,
   "userName": "seungyeop",
-  "ticketCount": 5,
+  "ticketCount": 2,
   "totalWinnings": 0
   }
 

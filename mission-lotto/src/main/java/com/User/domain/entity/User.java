@@ -1,20 +1,21 @@
-package com.lotto.entity;
+package com.User.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Entity
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @Table(name = "user")
 public class User {
 
@@ -22,13 +23,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column
+    @Column(name = "유저 이름")
     private String userName;
 
-    @Column
+    @Column(name = "보유 금액")
     private int balance;
 
-    @OneToMany(mappedBy = "user")
-    private List<LottoTicket> tickets;
+    @Column(name = "로또 개수")
+    private int lottoCount;
+
+    @Column(name = "당첨금")
+    private int winning;
 
 }

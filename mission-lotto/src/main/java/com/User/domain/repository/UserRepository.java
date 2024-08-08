@@ -1,6 +1,6 @@
-package com.lotto.repository;
+package com.User.domain.repository;
 
-import com.lotto.entity.User;
+import com.User.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

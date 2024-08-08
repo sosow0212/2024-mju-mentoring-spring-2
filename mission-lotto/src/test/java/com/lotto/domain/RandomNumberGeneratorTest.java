@@ -1,6 +1,6 @@
 package com.lotto.domain;
 
-import com.lotto.service.infrastructure.vo.RandomNumberGenerator;
+import com.lotto.infrastructure.vo.RandomNumberGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
